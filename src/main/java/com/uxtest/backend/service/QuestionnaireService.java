@@ -1,14 +1,12 @@
 package com.uxtest.backend.service;
 
-import com.uxtest.backend.model.questionnaire.Customer;
-import com.uxtest.backend.model.questionnaire.Questionnaire;
+import com.uxtest.backend.model.db.questionnaire.Questionnaire;
 import com.uxtest.backend.repository.QuestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestionnaireService {
@@ -24,7 +22,7 @@ public class QuestionnaireService {
         return questionnaires;
     }
 
-    public void addQuestionaire(Questionnaire questionnaire) {
+    public void addQuestionnaire(Questionnaire questionnaire) {
         questionnaireRepository.save(questionnaire);
     }
 
