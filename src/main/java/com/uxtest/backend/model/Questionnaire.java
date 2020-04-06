@@ -1,4 +1,7 @@
-package com.uxtest.backend.model.db.questionnaire;
+package com.uxtest.backend.model;
+
+import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
 

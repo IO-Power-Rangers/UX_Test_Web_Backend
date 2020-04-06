@@ -1,6 +1,4 @@
-package com.uxtest.backend.model.db.questionnaire;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package com.uxtest.backend.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,7 +19,7 @@ public class Question {
     @JoinColumn(name="QuestionnaireId", nullable=false)
     private Questionnaire questionnaire;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy="question")
     private Set<Answer> answers;
 
     public Question() { }

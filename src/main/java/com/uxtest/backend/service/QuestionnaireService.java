@@ -1,6 +1,6 @@
 package com.uxtest.backend.service;
 
-import com.uxtest.backend.model.db.questionnaire.Questionnaire;
+import com.uxtest.backend.model.Questionnaire;
 import com.uxtest.backend.repository.QuestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
