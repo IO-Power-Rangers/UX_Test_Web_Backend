@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RequestMapping("/api/questionnaire")
@@ -23,16 +24,21 @@ public class QuestionnaireController {
     @PostMapping
     public void addQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
 
-        // questionnaireService.addQuestionnaire(questionnaireDTO);
-
-        System.out.println(questionnaireDTO.getName());
-        questionnaireDTO.getQuestions().forEach(q ->  System.out.println(q.getContent()));
+        questionnaireService.addQuestionnaire(questionnaireDTO.toQuestionnaire());
     }
 
     @GetMapping
-    public List<Questionnaire> getAllQuestionnaires() {
+    public List<QuestionnaireDTO> getAllQuestionnaires() {
 
-        return questionnaireService.getAllQuestionnaires();
+        var r = questionnaireService.getAllQuestionnaires().stream()
+                .map(Questionnaire::toDTO)
+                .collect(Collectors.toList());
+        r.forEach(q -> {
+            System.out.println(q.getName());
+            q.getQuestions().forEach(System.out::println);
+        });
+        return r;
+
     }
 
 //    @GetMapping("/byname")

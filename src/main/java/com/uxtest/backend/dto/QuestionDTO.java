@@ -1,7 +1,16 @@
 package com.uxtest.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uxtest.backend.model.Question;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class QuestionDTO {
 
     @JsonProperty
@@ -9,5 +18,11 @@ public class QuestionDTO {
 
     public String getContent() {
         return content;
+    }
+
+    public Question toQuestion() {
+        return Question.builder()
+                .content(content)
+                .build();
     }
 }

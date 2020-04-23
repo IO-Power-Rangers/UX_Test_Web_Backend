@@ -1,28 +1,34 @@
 package com.uxtest.backend.model;
 
+import com.uxtest.backend.dto.QuestionDTO;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="QuestionId")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name="Content")
     private String content;
 
     @ManyToOne
-    @JoinColumn(name="QuestionnaireId", nullable=false)
+    @JoinColumn(name="questionnaireId", nullable=false)
     private Questionnaire questionnaire;
 
     @OneToMany(mappedBy="question")
-    private Set<Answer> answers;
+    private List<Answer> answers;
 
-    public Question() { }
 
     public Question(String content) {
         this.content = content;
@@ -32,7 +38,13 @@ public class Question {
         return content;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
+    }
+
+    public QuestionDTO toDTO() {
+        return QuestionDTO.builder()
+                .content(this.content)
+                .build();
     }
 }
