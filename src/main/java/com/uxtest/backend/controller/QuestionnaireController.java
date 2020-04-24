@@ -24,7 +24,7 @@ public class QuestionnaireController {
     @PostMapping
     public void addQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
 
-        questionnaireService.addQuestionnaire(questionnaireDTO.toQuestionnaire());
+        questionnaireService.addQuestionnaire(questionnaireDTO.parseQuestionnaire());
 
     }
 
@@ -32,13 +32,7 @@ public class QuestionnaireController {
     public List<QuestionnaireDTO> getAllQuestionnaires() {
 
         return questionnaireService.getAllQuestionnaires().stream()
-                .map(Questionnaire::toDTO)
+                .map(Questionnaire::mapToDTO)
                 .collect(Collectors.toList());
     }
-
-//    @GetMapping("/byname")
-//    public Questionnaire getSurveyByName(@RequestParam String name) {
-//        return questionnaireService.getQuestionnaireByName(name).orElse(null);
-//    }
-
 }

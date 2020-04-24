@@ -26,8 +26,6 @@ public class QuestionnaireService {
     public List<Questionnaire> getAllQuestionnaires() {
 
         return questionnaireRepository.findAll();
-
-
     }
 
     public void addQuestionnaire(Questionnaire questionnaire) {
@@ -39,9 +37,4 @@ public class QuestionnaireService {
             questionRepository.save(question);
         }
     }
-
-//    public Optional<Questionnaire> getQuestionnaireByName(String name) {
-//
-//        return questionnaireRepository.
-//    }
 }

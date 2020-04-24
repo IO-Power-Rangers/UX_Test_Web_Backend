@@ -34,17 +34,9 @@ public class Question {
         this.content = content;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public QuestionDTO toDTO() {
+    public QuestionDTO mapToDTO() {
         return QuestionDTO.builder()
-                .content(this.content)
+                .content(getContent())
                 .build();
     }
 }

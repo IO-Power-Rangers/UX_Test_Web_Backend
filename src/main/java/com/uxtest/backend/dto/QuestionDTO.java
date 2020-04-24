@@ -16,13 +16,9 @@ public class QuestionDTO {
     @JsonProperty
     private String content;
 
-    public String getContent() {
-        return content;
-    }
-
-    public Question toQuestion() {
+    public Question parseQuestion() {
         return Question.builder()
-                .content(content)
+                .content(getContent())
                 .build();
     }
 }
