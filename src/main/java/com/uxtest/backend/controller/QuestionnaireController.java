@@ -25,20 +25,15 @@ public class QuestionnaireController {
     public void addQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
 
         questionnaireService.addQuestionnaire(questionnaireDTO.toQuestionnaire());
+
     }
 
     @GetMapping
     public List<QuestionnaireDTO> getAllQuestionnaires() {
 
-        var r = questionnaireService.getAllQuestionnaires().stream()
+        return questionnaireService.getAllQuestionnaires().stream()
                 .map(Questionnaire::toDTO)
                 .collect(Collectors.toList());
-        r.forEach(q -> {
-            System.out.println(q.getName());
-            q.getQuestions().forEach(System.out::println);
-        });
-        return r;
-
     }
 
 //    @GetMapping("/byname")

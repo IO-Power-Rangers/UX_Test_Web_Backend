@@ -1,37 +1,29 @@
-package com.uxtest.backend.model.user;
+package com.uxtest.backend.dto;
 
-import com.uxtest.backend.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
-@Entity
-@Table(name = "Users")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(unique = true)
     @Email
     private String email;
 
-    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
-    private Date lastPasswordModified;
 
     @NotNull
     private String firstName;
@@ -40,26 +32,21 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
     private Boolean recordingAgreement;
 
-    public enum Role {
-        UXER,
-        TESTER
-    }
-
-    public UserDTO mapToDTO() {
-        return UserDTO.builder()
-                .id(this.getId())
+    public User parseUser() {
+        return User.builder()
                 .email(this.getEmail())
-                .password(this.getPassword())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
+                .password(this.getPassword())
                 .recordingAgreement(this.getRecordingAgreement())
-                .role(this.getRole().toString())
+                .role(User.Role.valueOf(this.getRole()))
                 .build();
+
     }
+
 
 }
