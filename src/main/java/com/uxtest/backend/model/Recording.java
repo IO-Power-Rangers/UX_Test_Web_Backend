@@ -1,6 +1,7 @@
 package com.uxtest.backend.model;
 
 
+import com.uxtest.backend.model.test.Test;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,11 +25,11 @@ public class Recording {
     @JoinColumn(name="userId", nullable=false)
     private User user;
 
-//    @ManyToOne
-//    @JoinColumn(name="testId", nullable = false)
-//    private Test test;
+    @ManyToOne
+    @JoinColumn(name="testId", nullable = false)
+    private Test test;
 
-    private byte[] video;
+    public byte[] video;
 
     public Recording(byte[] video){
         this.video = video;
