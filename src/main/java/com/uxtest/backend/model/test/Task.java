@@ -27,6 +27,9 @@ public class Task {
     private String name;
 
     @NotNull
+    private int index;
+
+    @NotNull
     private String description;
 
     @ManyToOne

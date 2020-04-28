@@ -28,6 +28,9 @@ public class Test {
     private Long id;
 
     @NotNull
+    private String axLink;
+
+    @NotNull
     private String title;
 
     @OneToMany(mappedBy = "test")
@@ -39,6 +42,7 @@ public class Test {
                 .id(this.getId())
                 .title(this.getTitle())
                 .tasks(this.getTasks())
+                .axLink(this.getAxLink())
                 .build();
     }
 }

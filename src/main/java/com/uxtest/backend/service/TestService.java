@@ -20,6 +20,7 @@ public class TestService {
         return testRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Test not found"));
     }
 
+
     public void createTest(Test test) {
         testRepository.save(test);
     }

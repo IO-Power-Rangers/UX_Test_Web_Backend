@@ -19,6 +19,9 @@ public class TestDTO {
     private Long id;
 
     @NotNull
+    private String axLink;
+
+    @NotNull
     private String title;
 
     private List<Task> tasks;
@@ -26,7 +29,8 @@ public class TestDTO {
     public Test parseTest() {
         return Test.builder()
                 .title(this.getTitle())
-                .tasks(this.tasks)
+                .tasks(this.getTasks())
+                .axLink(this.getAxLink())
                 .build();
     }
 }
