@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.uxtest.backend.dto.TaskDTO;
 import com.uxtest.backend.dto.TestDTO;
+import com.uxtest.backend.model.uxmodel.UxModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +13,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Test")
@@ -28,21 +27,24 @@ public class Test {
     private Long id;
 
     @NotNull
-    private String axLink;
-
-    @NotNull
     private String title;
 
     @OneToMany(mappedBy = "test")
     @JsonIgnoreProperties("test")
     private List<Task> tasks;
 
+    @ManyToOne
+    @JoinColumn(name = "uxModel_axLink")
+    @JsonIgnoreProperties("tests")
+    @NotNull
+    private UxModel uxModel;
+
     public TestDTO mapToDTO() {
         return TestDTO.builder()
                 .id(this.getId())
                 .title(this.getTitle())
                 .tasks(this.getTasks())
-                .axLink(this.getAxLink())
+                .uxModel(this.getUxModel())
                 .build();
     }
 }

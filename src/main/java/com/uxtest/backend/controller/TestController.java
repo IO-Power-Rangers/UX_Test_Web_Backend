@@ -1,16 +1,17 @@
 package com.uxtest.backend.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.TestDTO;
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.uxmodel.UxModel;
 import com.uxtest.backend.service.TaskService;
 import com.uxtest.backend.service.TestService;
+import com.uxtest.backend.service.UxModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,8 @@ public class TestController {
     private TestService testService;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private UxModelService uxModelService;
 
     @GetMapping("/{id}")
     @ResponseBody
@@ -40,8 +43,16 @@ public class TestController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createTest(@RequestBody TestDTO testDTO) {
         List<Task> tasks = testDTO.getTasks();
+        UxModel uxModel = testDTO.getUxModel();
         tasks.forEach(task->taskService.createTask(task));
         Test test = testDTO.parseTest();
+        uxModel.getTests().add(test);
+
+        try {
+            uxModelService.updateUxModel(uxModel, uxModel.getAxLink());
+        }catch(ResponseStatusException e){
+            uxModelService.createUxModel(uxModel);
+        }
         tasks.forEach(task->task.setTest(test));
         testService.createTest(test);
     }

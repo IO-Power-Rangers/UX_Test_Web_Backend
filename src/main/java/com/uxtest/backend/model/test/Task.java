@@ -1,9 +1,6 @@
 package com.uxtest.backend.model.test;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.uxtest.backend.dto.TaskDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +31,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "test_id")
+    @JsonIgnoreProperties("tasks")
     private Test test;
 
 
