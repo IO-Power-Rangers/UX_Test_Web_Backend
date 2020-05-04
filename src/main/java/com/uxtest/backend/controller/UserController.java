@@ -33,13 +33,19 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody UserDTO userDTO) {
-        userService.createUser(userDTO.parseUser());
+    public Long createUser(@RequestBody UserDTO userDTO) {
+
+        return userService.createUser(userDTO.parseUser());
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
         userService.updateUser(userDTO.parseUser(), id);
+    }
+
+    @GetMapping("/{email}/{role}")
+    public Long getIdFromExistingCustomer(@PathVariable("email") String email, @PathVariable("role")User.Role role){
+       return userService.getIdByEmailRole(email,role);
     }
 }

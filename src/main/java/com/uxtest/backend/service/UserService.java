@@ -19,8 +19,12 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
-    public void createUser(User user) {
-        userRepository.save(user);
+    public Long getIdByEmailRole(String email, User.Role role){
+        return userRepository.findByEmailAndRole(email,role).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getId();
+    }
+
+    public Long createUser(User user) {
+        return userRepository.save(user).getId();
     }
 
     public void updateUser(User user, Long id) {

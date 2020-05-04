@@ -24,7 +24,6 @@ public class User {
     private Long id;
 
     @NotNull
-    @Column(unique = true)
     @Email
     private String email;
 
