@@ -1,6 +1,7 @@
-package com.uxtest.backend.model;
+package com.uxtest.backend.model.questionnaire;
 
-import com.uxtest.backend.dto.QuestionDTO;
+import com.uxtest.backend.dto.TextQuestionDTO;
+import com.uxtest.backend.model.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Question {
+public class TextQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +31,12 @@ public class Question {
     private List<Answer> answers;
 
 
-    public Question(String content) {
+    public TextQuestion(String content) {
         this.content = content;
     }
 
-    public QuestionDTO mapToDTO() {
-        return QuestionDTO.builder()
+    public TextQuestionDTO mapToDTO() {
+        return TextQuestionDTO.builder()
                 .content(getContent())
                 .build();
     }

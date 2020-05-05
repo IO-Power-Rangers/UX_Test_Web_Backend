@@ -1,12 +1,12 @@
 package com.uxtest.backend.model;
 
+import com.uxtest.backend.model.questionnaire.TextQuestion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Data
@@ -21,5 +21,5 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name="questionId", nullable=false)
-    private Question question;
+    private TextQuestion question;
 }

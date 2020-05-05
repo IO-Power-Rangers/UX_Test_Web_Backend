@@ -1,4 +1,4 @@
-package com.uxtest.backend.model;
+package com.uxtest.backend.model.questionnaire;
 
 import com.uxtest.backend.dto.QuestionnaireDTO;
 import lombok.AllArgsConstructor;
@@ -26,18 +26,18 @@ public class Questionnaire {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "questionnaire")
-    private List<Question> questions;
+    @OneToMany(mappedBy="questionnaire")
+    private List<TextQuestion> textQuestions;
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
+    @OneToMany(mappedBy="questionnaire")
+    private List<MultipleChoiceQuestion> multipleChoiceQuestions;
+
 
     public QuestionnaireDTO mapToDTO() {
         return QuestionnaireDTO.builder()
                 .name(getName())
-                .questions(getQuestions().stream()
-                        .map(Question::mapToDTO)
+                .textQuestions(getTextQuestions().stream()
+                        .map(TextQuestion::mapToDTO)
                         .collect(Collectors.toList()))
                 .build();
     }
