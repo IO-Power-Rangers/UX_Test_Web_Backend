@@ -24,22 +24,7 @@ public class QuestionnaireController {
     @PostMapping
     public void addQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
 
-        var x = questionnaireDTO;
-
-        System.out.println(x.getName());
-        x.getTextQuestions().forEach(
-                tq -> System.out.println(tq.getContent())
-        );
-
-        x.getMultipleChoiceQuestions().forEach(
-                tq -> tq.getOptions()
-                        .forEach(
-                                o -> System.out.println(o.getContent())
-                        )
-        );
-
-        //questionnaireService.addQuestionnaire(questionnaireDTO.parseQuestionnaire());
-
+        questionnaireService.addQuestionnaire(questionnaireDTO.parseQuestionnaire());
     }
 
     @GetMapping

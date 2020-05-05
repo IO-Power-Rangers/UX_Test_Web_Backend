@@ -1,7 +1,7 @@
 package com.uxtest.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.uxtest.backend.model.questionnaire.TextQuestion;
+import com.uxtest.backend.model.questionnaire.question.TextQuestion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

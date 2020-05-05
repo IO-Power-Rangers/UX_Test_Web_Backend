@@ -1,10 +1,9 @@
 package com.uxtest.backend.service;
 
-import com.uxtest.backend.model.questionnaire.MultipleChoiceQuestion;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.repository.MultipleChoiceQuestionOptionRepository;
 import com.uxtest.backend.repository.MultipleChoiceQuestionRepository;
-import com.uxtest.backend.repository.QuestionRepository;
+import com.uxtest.backend.repository.TextQuestionRepository;
 import com.uxtest.backend.repository.QuestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +14,13 @@ import java.util.List;
 public class QuestionnaireService {
 
     private final QuestionnaireRepository questionnaireRepository;
-    private final QuestionRepository questionRepository;
+    private final TextQuestionRepository questionRepository;
     private final MultipleChoiceQuestionRepository multipleChoiceQuestionRepository;
     private final MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository;
 
     @Autowired
     public QuestionnaireService(QuestionnaireRepository questionnaireRepository,
-                                QuestionRepository questionRepository,
+                                TextQuestionRepository questionRepository,
                                 MultipleChoiceQuestionRepository multipleChoiceQuestionRepository,
                                 MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository) {
         this.questionnaireRepository = questionnaireRepository;
@@ -57,7 +56,7 @@ public class QuestionnaireService {
             multipleChoiceQuestionRepository.save(question);
 
             for (var option : question.getOptions()) {
-                option.setQuestion(question);
+                option.setMultipleChoiceQuestion(question);
                 multipleChoiceQuestionOptionRepository.save(option);
             }
         }

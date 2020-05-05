@@ -1,6 +1,6 @@
 package com.uxtest.backend.repository;
 
-import com.uxtest.backend.model.questionnaire.MultipleChoiceQuestion;
+import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

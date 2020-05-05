@@ -1,6 +1,9 @@
 package com.uxtest.backend.model.questionnaire;
 
 import com.uxtest.backend.dto.QuestionnaireDTO;
+import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
+import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestion;
+import com.uxtest.backend.model.questionnaire.question.TextQuestion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,12 +35,18 @@ public class Questionnaire {
     @OneToMany(mappedBy="questionnaire")
     private List<MultipleChoiceQuestion> multipleChoiceQuestions;
 
+    @OneToMany(mappedBy="questionnaire")
+    private List<MultipleAnswerQuestion> multipleAnswerQuestions;
+
 
     public QuestionnaireDTO mapToDTO() {
         return QuestionnaireDTO.builder()
                 .name(getName())
                 .textQuestions(getTextQuestions().stream()
                         .map(TextQuestion::mapToDTO)
+                        .collect(Collectors.toList()))
+                .multipleChoiceQuestions(getMultipleChoiceQuestions().stream()
+                        .map(MultipleChoiceQuestion::mapToDTO)
                         .collect(Collectors.toList()))
                 .build();
     }
