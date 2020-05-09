@@ -25,6 +25,7 @@ public class TestDTO {
 
     public Test parseTest() {
         return Test.builder()
+                .id(this.getId())
                 .title(this.getTitle())
                 .tasks(this.tasks)
                 .build();

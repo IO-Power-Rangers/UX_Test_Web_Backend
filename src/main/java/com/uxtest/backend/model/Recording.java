@@ -1,12 +1,16 @@
 package com.uxtest.backend.model;
 
 
+import com.uxtest.backend.dto.RecordingDTO;
+import com.uxtest.backend.dto.UserDTO;
 import com.uxtest.backend.model.test.Test;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.base64.Base64;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -31,8 +35,12 @@ public class Recording {
 
     public byte[] video;
 
-    public Recording(byte[] video){
-        this.video = video;
+    public RecordingDTO mapToDTO() {
+        return RecordingDTO.builder()
+                .id(this.getId())
+                .user(this.user.mapToDTO())
+                .test(this.test.mapToDTO())
+                .video(new String(Base64.encode(this.video)))
+                .build();
     }
-
 }
