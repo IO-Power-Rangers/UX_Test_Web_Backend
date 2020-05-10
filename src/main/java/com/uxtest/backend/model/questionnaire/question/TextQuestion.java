@@ -1,6 +1,6 @@
 package com.uxtest.backend.model.questionnaire.question;
 
-import com.uxtest.backend.dto.question.TextQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.question.TextQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,10 +1,10 @@
-package com.uxtest.backend.dto;
+package com.uxtest.backend.dto.questionnaire;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.uxtest.backend.dto.question.LikertScaleQuestionDTO;
-import com.uxtest.backend.dto.question.MultipleAnswerQuestionDTO;
-import com.uxtest.backend.dto.question.MultipleChoiceQuestionDTO;
-import com.uxtest.backend.dto.question.TextQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.question.LikertScaleQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.question.MultipleAnswerQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.question.MultipleChoiceQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.question.TextQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,7 +55,5 @@ public class QuestionnaireDTO {
                        .map(LikertScaleQuestionDTO::parseLikertScaleQuestion)
                        .collect(Collectors.toList()))
                .build();
-
-
     }
 }

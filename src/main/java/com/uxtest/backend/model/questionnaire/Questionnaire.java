@@ -1,6 +1,6 @@
 package com.uxtest.backend.model.questionnaire;
 
-import com.uxtest.backend.dto.QuestionnaireDTO;
+import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.question.LikertScaleQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestion;

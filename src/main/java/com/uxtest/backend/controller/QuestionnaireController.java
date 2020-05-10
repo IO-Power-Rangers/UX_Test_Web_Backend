@@ -1,6 +1,6 @@
 package com.uxtest.backend.controller;
 
-import com.uxtest.backend.dto.QuestionnaireDTO;
+import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;

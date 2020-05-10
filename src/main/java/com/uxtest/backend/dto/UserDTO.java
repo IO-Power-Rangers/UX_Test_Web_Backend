@@ -18,31 +18,39 @@ public class UserDTO {
 
     private Long id;
 
-    @NotNull
+
     @Email
     private String email;
 
     private String password;
 
-    @NotNull
+
     private String firstName;
 
-    @NotNull
+
     private String lastName;
 
-    @NotNull
+
     private String role;
 
     private Boolean recordingAgreement;
 
     public User parseUser() {
+
+        User.Role role = null;
+
+        if (this.getRole() != null) {
+            role = User.Role.valueOf(this.getRole());
+        }
+
         return User.builder()
+                .id(getId())
                 .email(this.getEmail())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
                 .password(this.getPassword())
                 .recordingAgreement(this.getRecordingAgreement())
-                .role(User.Role.valueOf(this.getRole()))
+                .role(role)
                 .build();
 
     }

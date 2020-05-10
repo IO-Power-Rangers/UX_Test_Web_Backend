@@ -1,6 +1,6 @@
 package com.uxtest.backend.model.questionnaire.question;
 
-import com.uxtest.backend.dto.question.MultipleChoiceQuestionOptionDTO;
+import com.uxtest.backend.dto.questionnaire.question.MultipleChoiceQuestionOptionDTO;
 import com.uxtest.backend.model.questionnaire.answer.MultipleChoiceAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
