@@ -1,9 +1,7 @@
 package com.uxtest.backend.model.questionnaire.question;
 
-import com.uxtest.backend.dto.MultipleAnswerQuestionDTO;
+import com.uxtest.backend.dto.question.MultipleAnswerQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.model.questionnaire.answer.MultipleAnswerAnswer;
-import com.uxtest.backend.model.questionnaire.answer.MultipleChoiceAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,8 +29,6 @@ public class MultipleAnswerQuestion {
     @OneToMany(mappedBy="multipleAnswerQuestion")
     private List<MultipleAnswerQuestionOption> options;
 
-    @OneToMany(mappedBy="question")
-    private List<MultipleAnswerAnswer> answers;
 
     @ManyToOne
     @JoinColumn(nullable=false)
@@ -40,6 +36,7 @@ public class MultipleAnswerQuestion {
 
     public MultipleAnswerQuestionDTO mapToDTO() {
         return MultipleAnswerQuestionDTO.builder()
+                .id(getId())
                 .content(getContent())
                 .options(getOptions().stream()
                         .map(MultipleAnswerQuestionOption::mapToDTO)

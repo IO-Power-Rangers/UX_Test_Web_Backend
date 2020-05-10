@@ -1,15 +1,14 @@
 package com.uxtest.backend.model.questionnaire.question;
 
-import com.uxtest.backend.dto.TextQuestionDTO;
+import com.uxtest.backend.dto.question.TextQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.model.questionnaire.answer.TextAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -22,17 +21,16 @@ public class TextQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String content;
 
     @ManyToOne
     @JoinColumn(nullable=false)
     private Questionnaire questionnaire;
 
-    @OneToMany(mappedBy="question")
-    private List<TextAnswer> answers;
-
     public TextQuestionDTO mapToDTO() {
         return TextQuestionDTO.builder()
+                .id(getId())
                 .content(getContent())
                 .build();
     }

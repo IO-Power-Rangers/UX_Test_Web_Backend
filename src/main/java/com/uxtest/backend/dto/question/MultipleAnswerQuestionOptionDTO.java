@@ -1,4 +1,4 @@
-package com.uxtest.backend.dto;
+package com.uxtest.backend.dto.question;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestionOption;
@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MultipleAnswerQuestionOptionDTO {
+
+    @JsonProperty
+    private Long id;
 
     @JsonProperty
     private String content;

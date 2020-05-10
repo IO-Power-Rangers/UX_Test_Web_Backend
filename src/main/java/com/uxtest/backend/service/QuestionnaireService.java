@@ -1,10 +1,7 @@
 package com.uxtest.backend.service;
 
 import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.repository.MultipleChoiceQuestionOptionRepository;
-import com.uxtest.backend.repository.MultipleChoiceQuestionRepository;
-import com.uxtest.backend.repository.TextQuestionRepository;
-import com.uxtest.backend.repository.QuestionnaireRepository;
+import com.uxtest.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +11,29 @@ import java.util.List;
 public class QuestionnaireService {
 
     private final QuestionnaireRepository questionnaireRepository;
-    private final TextQuestionRepository questionRepository;
+    private final TextQuestionRepository textQuestionRepository;
     private final MultipleChoiceQuestionRepository multipleChoiceQuestionRepository;
     private final MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository;
+    private final MultipleAnswerQuestionRepository multipleAnswerQuestionRepository;
+    private final MultipleAnswerQuestionOptionRepository multipleAnswerQuestionOptionRepository;
+    private final LikertScaleQuestionRepository likertScaleQuestionRepository;
 
     @Autowired
     public QuestionnaireService(QuestionnaireRepository questionnaireRepository,
-                                TextQuestionRepository questionRepository,
+                                TextQuestionRepository textQuestionRepository,
                                 MultipleChoiceQuestionRepository multipleChoiceQuestionRepository,
-                                MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository) {
+                                MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository,
+                                MultipleAnswerQuestionRepository multipleAnswerQuestionRepository,
+                                MultipleAnswerQuestionOptionRepository multipleAnswerQuestionOptionRepository,
+                                LikertScaleQuestionRepository likertScaleQuestionRepository) {
+
         this.questionnaireRepository = questionnaireRepository;
-        this.questionRepository = questionRepository;
+        this.textQuestionRepository = textQuestionRepository;
         this.multipleChoiceQuestionRepository = multipleChoiceQuestionRepository;
         this.multipleChoiceQuestionOptionRepository = multipleChoiceQuestionOptionRepository;
+        this.multipleAnswerQuestionRepository = multipleAnswerQuestionRepository;
+        this.multipleAnswerQuestionOptionRepository = multipleAnswerQuestionOptionRepository;
+        this.likertScaleQuestionRepository = likertScaleQuestionRepository;
     }
 
     public List<Questionnaire> getAllQuestionnaires() {
@@ -39,14 +46,15 @@ public class QuestionnaireService {
         questionnaireRepository.save(questionnaire);
 
         saveTextQuestions(questionnaire);
-
         saveMultipleChoiceQuestions(questionnaire);
+        saveMultipleAnswerQuestions(questionnaire);
+        saveLikertScaleQuestions(questionnaire);
     }
 
     private void saveTextQuestions(Questionnaire questionnaire) {
         for (var question : questionnaire.getTextQuestions()) {
             question.setQuestionnaire(questionnaire);
-            questionRepository.save(question);
+            textQuestionRepository.save(question);
         }
     }
 
@@ -59,6 +67,25 @@ public class QuestionnaireService {
                 option.setMultipleChoiceQuestion(question);
                 multipleChoiceQuestionOptionRepository.save(option);
             }
+        }
+    }
+
+    private void saveMultipleAnswerQuestions(Questionnaire questionnaire) {
+        for (var question : questionnaire.getMultipleAnswerQuestions()) {
+            question.setQuestionnaire(questionnaire);
+            multipleAnswerQuestionRepository.save(question);
+
+            for (var option : question.getOptions()) {
+                option.setMultipleAnswerQuestion(question);
+                multipleAnswerQuestionOptionRepository.save(option);
+            }
+        }
+    }
+
+    private void saveLikertScaleQuestions(Questionnaire questionnaire) {
+        for (var question : questionnaire.getLikertScaleQuestions()) {
+            question.setQuestionnaire(questionnaire);
+            likertScaleQuestionRepository.save(question);
         }
     }
 }

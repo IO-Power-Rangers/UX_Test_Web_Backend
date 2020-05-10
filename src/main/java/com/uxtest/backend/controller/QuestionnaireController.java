@@ -24,6 +24,8 @@ public class QuestionnaireController {
     @PostMapping
     public void addQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
 
+        //debugPrint(questionnaireDTO);
+
         questionnaireService.addQuestionnaire(questionnaireDTO.parseQuestionnaire());
     }
 
@@ -33,5 +35,31 @@ public class QuestionnaireController {
         return questionnaireService.getAllQuestionnaires().stream()
                 .map(Questionnaire::mapToDTO)
                 .collect(Collectors.toList());
+    }
+
+    private void debugPrint(QuestionnaireDTO questionnaireDTO) {
+        System.out.println(questionnaireDTO.getName());
+
+        questionnaireDTO.getTextQuestions()
+                .forEach(q -> System.out.println(q.getContent()));
+
+        questionnaireDTO.getMultipleChoiceQuestions()
+                .forEach(q -> {
+                    System.out.println(q.getContent());
+                    q.getOptions().forEach(o -> System.out.println(o.getContent()));
+                });
+
+        questionnaireDTO.getMultipleAnswerQuestions()
+                .forEach(q -> {
+                    System.out.println(q.getContent());
+                    q.getOptions().forEach(o -> System.out.println(o.getContent()));
+                });
+
+        questionnaireDTO.getLikertScaleQuestions()
+                .forEach(q -> {
+                    System.out.println(q.getContent());
+                    System.out.println(q.getRange());
+                });
+
     }
 }

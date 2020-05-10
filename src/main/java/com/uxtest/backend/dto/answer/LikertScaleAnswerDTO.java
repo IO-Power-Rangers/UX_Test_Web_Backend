@@ -1,6 +1,7 @@
-package com.uxtest.backend.model.questionnaire.answer;
+package com.uxtest.backend.dto.answer;
 
-import com.uxtest.backend.dto.answer.LikertScaleAnswerDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uxtest.backend.model.questionnaire.answer.LikertScaleAnswer;
 import com.uxtest.backend.model.questionnaire.question.LikertScaleQuestion;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
@@ -8,38 +9,30 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
-@Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class LikertScaleAnswer {
+@NoArgsConstructor
+@AllArgsConstructor
+public class LikertScaleAnswerDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id;
 
-    @NotNull
+    @JsonProperty
     private int answer;
 
-    @ManyToOne
-    @JoinColumn(nullable=false)
+    @JsonProperty
     private LikertScaleQuestion question;
 
-    @ManyToOne
-    @JoinColumn(nullable=false)
+    @JsonProperty
     private User user;
 
-    public LikertScaleAnswerDTO mapToDTO() {
-        return LikertScaleAnswerDTO.builder()
+    public LikertScaleAnswer parseLikertScaleAnswer() {
+        return LikertScaleAnswer.builder()
                 .id(getId())
                 .answer(getAnswer())
                 .question(getQuestion())
                 .user(getUser())
                 .build();
-
     }
 }

@@ -1,6 +1,10 @@
 package com.uxtest.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uxtest.backend.dto.question.LikertScaleQuestionDTO;
+import com.uxtest.backend.dto.question.MultipleAnswerQuestionDTO;
+import com.uxtest.backend.dto.question.MultipleChoiceQuestionDTO;
+import com.uxtest.backend.dto.question.TextQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +21,9 @@ import java.util.stream.Collectors;
 public class QuestionnaireDTO {
 
     @JsonProperty
+    private Long id;
+
+    @JsonProperty
     private String name;
 
     @JsonProperty
@@ -25,16 +32,28 @@ public class QuestionnaireDTO {
     @JsonProperty
     private List<MultipleChoiceQuestionDTO> multipleChoiceQuestions;
 
+    @JsonProperty
+    private List<MultipleAnswerQuestionDTO> multipleAnswerQuestions;
+
+    @JsonProperty
+    private List<LikertScaleQuestionDTO> likertScaleQuestions;
+
     public Questionnaire parseQuestionnaire() {
 
        return Questionnaire.builder()
                .name(getName())
                .textQuestions(getTextQuestions().stream()
-                       .map(TextQuestionDTO::parseTextQuestion)
-                       .collect(Collectors.toList()))
+                    .map(TextQuestionDTO::parseTextQuestion)
+                    .collect(Collectors.toList()))
                .multipleChoiceQuestions(getMultipleChoiceQuestions().stream()
-                        .map(MultipleChoiceQuestionDTO::parseMultipleChoiceQuestion)
-                        .collect(Collectors.toList()))
+                       .map(MultipleChoiceQuestionDTO::parseMultipleChoiceQuestion)
+                       .collect(Collectors.toList()))
+               .multipleAnswerQuestions(getMultipleAnswerQuestions().stream()
+                       .map(MultipleAnswerQuestionDTO::parseMultipleChoiceQuestion)
+                       .collect(Collectors.toList()))
+               .likertScaleQuestions(getLikertScaleQuestions().stream()
+                       .map(LikertScaleQuestionDTO::parseLikertScaleQuestion)
+                       .collect(Collectors.toList()))
                .build();
 
 
