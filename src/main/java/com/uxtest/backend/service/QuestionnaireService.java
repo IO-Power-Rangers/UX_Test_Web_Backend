@@ -1,9 +1,9 @@
 package com.uxtest.backend.service;
 
-import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.repository.MultipleChoiceQuestionOptionRepository;
-import com.uxtest.backend.repository.MultipleChoiceQuestionRepository;
-import com.uxtest.backend.repository.TextQuestionRepository;
+import com.uxtest.backend.dto.QuestionnaireDTO;
+import com.uxtest.backend.model.Question;
+import com.uxtest.backend.model.Questionnaire;
+import com.uxtest.backend.repository.QuestionRepository;
 import com.uxtest.backend.repository.QuestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +14,13 @@ import java.util.List;
 public class QuestionnaireService {
 
     private final QuestionnaireRepository questionnaireRepository;
-    private final TextQuestionRepository questionRepository;
-    private final MultipleChoiceQuestionRepository multipleChoiceQuestionRepository;
-    private final MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository;
+    private final QuestionRepository questionRepository;
 
     @Autowired
     public QuestionnaireService(QuestionnaireRepository questionnaireRepository,
-                                TextQuestionRepository questionRepository,
-                                MultipleChoiceQuestionRepository multipleChoiceQuestionRepository,
-                                MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository) {
+                                QuestionRepository questionRepository) {
         this.questionnaireRepository = questionnaireRepository;
         this.questionRepository = questionRepository;
-        this.multipleChoiceQuestionRepository = multipleChoiceQuestionRepository;
-        this.multipleChoiceQuestionOptionRepository = multipleChoiceQuestionOptionRepository;
     }
 
     public List<Questionnaire> getAllQuestionnaires() {
@@ -38,27 +32,9 @@ public class QuestionnaireService {
 
         questionnaireRepository.save(questionnaire);
 
-        saveTextQuestions(questionnaire);
-
-        saveMultipleChoiceQuestions(questionnaire);
-    }
-
-    private void saveTextQuestions(Questionnaire questionnaire) {
-        for (var question : questionnaire.getTextQuestions()) {
+        for (var question : questionnaire.getQuestions()) {
             question.setQuestionnaire(questionnaire);
             questionRepository.save(question);
-        }
-    }
-
-    private void saveMultipleChoiceQuestions(Questionnaire questionnaire) {
-        for (var question : questionnaire.getMultipleChoiceQuestions()) {
-            question.setQuestionnaire(questionnaire);
-            multipleChoiceQuestionRepository.save(question);
-
-            for (var option : question.getOptions()) {
-                option.setMultipleChoiceQuestion(question);
-                multipleChoiceQuestionOptionRepository.save(option);
-            }
         }
     }
 }
