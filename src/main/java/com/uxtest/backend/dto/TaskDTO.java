@@ -19,6 +19,9 @@ public class TaskDTO {
     private String name;
 
     @NotNull
+    private int index;
+
+    @NotNull
     private String description;
 
     private Test test;
@@ -28,6 +31,7 @@ public class TaskDTO {
                 .name(this.getName())
                 .description(this.getDescription())
                 .test(this.getTest())
+                .index(this.getIndex())
                 .build();
     }
 }

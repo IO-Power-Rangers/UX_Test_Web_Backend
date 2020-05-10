@@ -2,6 +2,7 @@ package com.uxtest.backend.dto;
 
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.uxmodel.UxModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +24,14 @@ public class TestDTO {
 
     private List<Task> tasks;
 
+    @NotNull
+    private UxModel uxModel;
+
     public Test parseTest() {
         return Test.builder()
                 .title(this.getTitle())
-                .tasks(this.tasks)
+                .tasks(this.getTasks())
+                .uxModel(this.getUxModel())
                 .build();
     }
 }
