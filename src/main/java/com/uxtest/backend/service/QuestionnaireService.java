@@ -38,19 +38,19 @@ public class QuestionnaireService {
 
         questionnaireRepository.save(questionnaire);
 
-        saveTextQuestions(questionnaire);
+        saveTextQuestionsFromQuestionnaire(questionnaire);
 
-        saveMultipleChoiceQuestions(questionnaire);
+        saveMultipleChoiceQuestionsWithOptionsFromQuestionnaire(questionnaire);
     }
 
-    private void saveTextQuestions(Questionnaire questionnaire) {
+    private void saveTextQuestionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getTextQuestions()) {
             question.setQuestionnaire(questionnaire);
             questionRepository.save(question);
         }
     }
 
-    private void saveMultipleChoiceQuestions(Questionnaire questionnaire) {
+    private void saveMultipleChoiceQuestionsWithOptionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getMultipleChoiceQuestions()) {
             question.setQuestionnaire(questionnaire);
             multipleChoiceQuestionRepository.save(question);

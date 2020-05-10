@@ -27,7 +27,7 @@ public class LikertScaleQuestion {
     private String content;
 
     @NotNull
-    private int range; // number of possible steps in Likert scale
+    private int possibleStepsNo;
 
     @OneToMany(mappedBy="question")
     private List<LikertScaleAnswer> answers;
