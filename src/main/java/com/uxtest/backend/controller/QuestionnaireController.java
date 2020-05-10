@@ -63,7 +63,7 @@ public class QuestionnaireController {
         questionnaireDTO.getLikertScaleQuestions()
                 .forEach(q -> {
                     System.out.println(q.getContent());
-                    System.out.println(q.getRange());
+                    System.out.println(q.getPossibleStepsNo());
                 });
 
     }

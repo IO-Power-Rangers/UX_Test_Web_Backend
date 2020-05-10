@@ -21,12 +21,12 @@ public class LikertScaleQuestionDTO {
     private String content;
 
     @JsonProperty
-    private int range; // number of possible steps in Likert scale
+    private int possibleStepsNo;
 
     public LikertScaleQuestion parseLikertScaleQuestion() {
         return LikertScaleQuestion.builder()
                 .content(getContent())
-                .range(getRange())
+                .possibleStepsNo(getPossibleStepsNo())
                 .build();
     }
 }

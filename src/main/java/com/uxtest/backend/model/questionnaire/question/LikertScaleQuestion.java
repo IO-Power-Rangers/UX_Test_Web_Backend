@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -28,7 +26,7 @@ public class LikertScaleQuestion {
     private String content;
 
     @NotNull
-    private int range; // number of possible steps in Likert scale
+    private int possibleStepsNo;
 
     @ManyToOne
     @JoinColumn(nullable=false)
@@ -39,7 +37,7 @@ public class LikertScaleQuestion {
         return LikertScaleQuestionDTO.builder()
                 .id(getId())
                 .content(getContent())
-                .range(getRange())
+                .possibleStepsNo(getPossibleStepsNo())
                 .build();
     }
 }

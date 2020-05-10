@@ -47,10 +47,10 @@ public class QuestionnaireService {
 
         questionnaireRepository.save(questionnaire);
 
-        saveTextQuestions(questionnaire);
-        saveMultipleChoiceQuestions(questionnaire);
-        saveMultipleAnswerQuestions(questionnaire);
-        saveLikertScaleQuestions(questionnaire);
+        saveTextQuestionsFromQuestionnaire(questionnaire);
+        saveMultipleChoiceQuestionsWithOptionsFromQuestionnaire(questionnaire);
+        saveMultipleAnswerQuestionsWithOptionsFromQuestionnaire(questionnaire);
+        saveLikertScaleQuestionsFromQuestionnaire(questionnaire);
     }
 
     public Questionnaire getQuestionnaireById(Long id) {
@@ -58,14 +58,14 @@ public class QuestionnaireService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Questionnaire not found"));
     }
 
-    private void saveTextQuestions(Questionnaire questionnaire) {
+    private void saveTextQuestionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getTextQuestions()) {
             question.setQuestionnaire(questionnaire);
             textQuestionRepository.save(question);
         }
     }
 
-    private void saveMultipleChoiceQuestions(Questionnaire questionnaire) {
+    private void saveMultipleChoiceQuestionsWithOptionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getMultipleChoiceQuestions()) {
             question.setQuestionnaire(questionnaire);
             multipleChoiceQuestionRepository.save(question);
@@ -77,7 +77,7 @@ public class QuestionnaireService {
         }
     }
 
-    private void saveMultipleAnswerQuestions(Questionnaire questionnaire) {
+    private void saveMultipleAnswerQuestionsWithOptionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getMultipleAnswerQuestions()) {
             question.setQuestionnaire(questionnaire);
             multipleAnswerQuestionRepository.save(question);
@@ -89,7 +89,7 @@ public class QuestionnaireService {
         }
     }
 
-    private void saveLikertScaleQuestions(Questionnaire questionnaire) {
+    private void saveLikertScaleQuestionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getLikertScaleQuestions()) {
             question.setQuestionnaire(questionnaire);
             likertScaleQuestionRepository.save(question);
