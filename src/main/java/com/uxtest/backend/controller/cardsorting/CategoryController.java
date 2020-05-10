@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RequestMapping("/api/cardsorting/category")
+@RequestMapping("/api/cardsorting/categories")
 @RestController
 public class CategoryController {
     @Autowired

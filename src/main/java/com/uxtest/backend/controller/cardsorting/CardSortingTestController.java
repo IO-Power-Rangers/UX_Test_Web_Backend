@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RequestMapping("/api/cardsorting/test")
+@RequestMapping("/api/cardsorting/tests")
 @RestController
 public class CardSortingTestController {
     @Autowired

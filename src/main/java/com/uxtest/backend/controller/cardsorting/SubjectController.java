@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin
-@RequestMapping("/api/cardsorting/subject")
+@RequestMapping("/api/cardsorting/subjects")
 @RestController
 public class SubjectController {
     @Autowired
