@@ -1,7 +1,11 @@
 package com.uxtest.backend.service;
 
+import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.uxmodel.UxModel;
+import com.uxtest.backend.repository.TaskRepository;
 import com.uxtest.backend.repository.TestRepository;
+import com.uxtest.backend.repository.UxModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,8 @@ public class TestService {
 
 
     public void createTest(Test test) {
+        test.getUxModel().getTests().add(test);
+        test.getTasks().forEach(task->task.setTest(test));
         testRepository.save(test);
     }
 

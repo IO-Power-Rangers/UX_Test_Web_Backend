@@ -42,18 +42,14 @@ public class TestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createTest(@RequestBody TestDTO testDTO) {
-        List<Task> tasks = testDTO.getTasks();
-        UxModel uxModel = testDTO.getUxModel();
-        tasks.forEach(task->taskService.createTask(task));
         Test test = testDTO.parseTest();
-        uxModel.getTests().add(test);
-
+        test.getTasks().forEach(task->taskService.createTask(task));
+        UxModel uxModel = test.getUxModel();
         try {
             uxModelService.updateUxModel(uxModel, uxModel.getAxLink());
         }catch(ResponseStatusException e){
             uxModelService.createUxModel(uxModel);
         }
-        tasks.forEach(task->task.setTest(test));
         testService.createTest(test);
     }
 
