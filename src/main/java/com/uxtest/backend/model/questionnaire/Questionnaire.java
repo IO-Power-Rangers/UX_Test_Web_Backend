@@ -59,7 +59,6 @@ public class Questionnaire {
                 .likertScaleQuestions(getLikertScaleQuestions().stream()
                         .map(LikertScaleQuestion::mapToDTO)
                         .collect(Collectors.toList()))
-                //////
                 .build();
     }
 }

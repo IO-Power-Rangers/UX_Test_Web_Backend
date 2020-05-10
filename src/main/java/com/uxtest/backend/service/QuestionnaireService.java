@@ -3,7 +3,9 @@ package com.uxtest.backend.service;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -49,6 +51,11 @@ public class QuestionnaireService {
         saveMultipleChoiceQuestions(questionnaire);
         saveMultipleAnswerQuestions(questionnaire);
         saveLikertScaleQuestions(questionnaire);
+    }
+
+    public Questionnaire getQuestionnaireById(Long id) {
+        return questionnaireRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Questionnaire not found"));
     }
 
     private void saveTextQuestions(Questionnaire questionnaire) {

@@ -37,6 +37,11 @@ public class QuestionnaireController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/{id}")
+    public QuestionnaireDTO getQuestionnaireById(@PathVariable("id") Long id) {
+        return questionnaireService.getQuestionnaireById(id).mapToDTO();
+    }
+
     private void debugPrint(QuestionnaireDTO questionnaireDTO) {
         System.out.println(questionnaireDTO.getName());
 
