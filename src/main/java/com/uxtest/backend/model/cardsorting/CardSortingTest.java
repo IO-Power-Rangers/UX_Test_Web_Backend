@@ -28,11 +28,16 @@ public class CardSortingTest {
     @JsonIgnoreProperties("test")
     private List<Subject> subjects;
 
+    @OneToMany(mappedBy = "test")
+    @JsonIgnoreProperties("test")
+    private List<CardSortingResult> results;
+
     public CardSortingTestDTO mapToDTO() {
         return CardSortingTestDTO.builder()
                 .id(this.getId())
                 .categories(this.getCategories())
                 .subjects(this.getSubjects())
+                .results(this.getResults())
                 .build();
     }
 }

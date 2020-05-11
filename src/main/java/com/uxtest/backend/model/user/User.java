@@ -1,6 +1,8 @@
 package com.uxtest.backend.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.UserDTO;
+import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -48,6 +51,10 @@ public class User {
         TESTER
     }
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private List<CardSortingResult> results;
+
     public UserDTO mapToDTO() {
         return UserDTO.builder()
                 .id(this.getId())
@@ -57,6 +64,7 @@ public class User {
                 .lastName(this.getLastName())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(this.getRole().toString())
+                .results(this.results)
                 .build();
     }
 

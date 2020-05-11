@@ -1,10 +1,9 @@
 package com.uxtest.backend.dto.cardsorting;
 
+import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
-import com.uxtest.backend.model.cardsorting.Category;
 import com.uxtest.backend.model.cardsorting.CategoryWithSubjects;
-import com.uxtest.backend.model.test.Task;
-import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,22 +16,19 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDTO {
+public class CardSortingResultDTO {
     private Long id;
-
-    @NotNull
-    private String name;
-
     @NotNull
     private CardSortingTest test;
-
+    @NotNull
+    private User user;
     private List<CategoryWithSubjects> categoriesWithSubjects;
 
-    public Category parseCategory() {
-        return Category.builder()
+    public CardSortingResult parseResult() {
+        return CardSortingResult.builder()
                 .id(this.getId())
-                .name(this.getName())
                 .test(this.getTest())
+                .user(this.getUser())
                 .categoriesWithSubjects(this.getCategoriesWithSubjects())
                 .build();
     }
