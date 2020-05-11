@@ -2,12 +2,14 @@ package com.uxtest.backend.service.questionnaire;
 
 import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
+import com.uxtest.backend.model.questionnaire.question.Question;
 import com.uxtest.backend.repository.questionnaire.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -61,6 +63,18 @@ public class QuestionnaireService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Questionnaire not found"));
     }
 
+    public List<Question> getQuestionsByQuestionnaireId(Long id) {
+        Questionnaire questionnaire = questionnaireRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Questionnaire not found"));
+        List<Question> result = new ArrayList<>();
+        result.addAll(questionnaire.getTextQuestions());
+        result.addAll(questionnaire.getMultipleChoiceQuestions());
+        result.addAll(questionnaire.getMultipleAnswerQuestions());
+        result.addAll(questionnaire.getLikertScaleQuestions());
+        return result;
+
+    }
+
     private void saveTextQuestionsFromQuestionnaire(Questionnaire questionnaire) {
         for (var question : questionnaire.getTextQuestions()) {
             question.setQuestionnaire(questionnaire);
@@ -98,4 +112,5 @@ public class QuestionnaireService {
             likertScaleQuestionRepository.save(question);
         }
     }
+
 }

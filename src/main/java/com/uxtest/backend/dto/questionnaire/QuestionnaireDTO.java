@@ -40,20 +40,20 @@ public class QuestionnaireDTO {
 
     public Questionnaire parseQuestionnaire() {
 
-       return Questionnaire.builder()
-               .name(getName())
-               .textQuestions(getTextQuestions().stream()
-                    .map(TextQuestionDTO::parseTextQuestion)
-                    .collect(Collectors.toList()))
-               .multipleChoiceQuestions(getMultipleChoiceQuestions().stream()
-                       .map(MultipleChoiceQuestionDTO::parseMultipleChoiceQuestion)
-                       .collect(Collectors.toList()))
-               .multipleAnswerQuestions(getMultipleAnswerQuestions().stream()
-                       .map(MultipleAnswerQuestionDTO::parseMultipleChoiceQuestion)
-                       .collect(Collectors.toList()))
-               .likertScaleQuestions(getLikertScaleQuestions().stream()
-                       .map(LikertScaleQuestionDTO::parseLikertScaleQuestion)
-                       .collect(Collectors.toList()))
-               .build();
+        return Questionnaire.builder()
+                .name(getName())
+                .textQuestions(getTextQuestions().stream()
+                        .map(TextQuestionDTO::parseTextQuestion)
+                        .collect(Collectors.toList()))
+                .multipleChoiceQuestions(getMultipleChoiceQuestions().stream()
+                        .map(MultipleChoiceQuestionDTO::parseMultipleChoiceQuestion)
+                        .collect(Collectors.toList()))
+                .multipleAnswerQuestions(getMultipleAnswerQuestions().stream()
+                        .map(MultipleAnswerQuestionDTO::parseMultipleChoiceQuestion)
+                        .collect(Collectors.toList()))
+                .likertScaleQuestions(getLikertScaleQuestions().stream()
+                        .map(LikertScaleQuestionDTO::parseLikertScaleQuestion)
+                        .collect(Collectors.toList()))
+                .build();
     }
 }
