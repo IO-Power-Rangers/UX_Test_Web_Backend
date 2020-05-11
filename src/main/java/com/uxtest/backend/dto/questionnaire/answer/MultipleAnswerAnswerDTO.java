@@ -1,7 +1,6 @@
-package com.uxtest.backend.dto.answer;
+package com.uxtest.backend.dto.questionnaire.answer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.uxtest.backend.model.questionnaire.answer.MultipleAnswerAnswer;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestionOption;
 import com.uxtest.backend.model.user.User;
@@ -10,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Data

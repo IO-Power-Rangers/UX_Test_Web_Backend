@@ -1,4 +1,4 @@
-package com.uxtest.backend.dto.question;
+package com.uxtest.backend.dto.questionnaire.question;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestionOption;
@@ -21,6 +21,7 @@ public class MultipleChoiceQuestionOptionDTO {
 
     public MultipleChoiceQuestionOption parseMultipleChoiceQuestionOption() {
         return MultipleChoiceQuestionOption.builder()
+                .id(getId())
                 .content(getContent())
                 .build();
     }

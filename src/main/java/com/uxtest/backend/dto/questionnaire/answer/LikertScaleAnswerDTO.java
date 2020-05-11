@@ -1,4 +1,4 @@
-package com.uxtest.backend.dto.answer;
+package com.uxtest.backend.dto.questionnaire.answer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.questionnaire.answer.LikertScaleAnswer;

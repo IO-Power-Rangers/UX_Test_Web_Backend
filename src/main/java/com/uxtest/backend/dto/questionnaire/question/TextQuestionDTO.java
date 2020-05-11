@@ -1,4 +1,4 @@
-package com.uxtest.backend.dto.question;
+package com.uxtest.backend.dto.questionnaire.question;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.questionnaire.question.TextQuestion;
@@ -21,6 +21,7 @@ public class TextQuestionDTO {
 
     public TextQuestion parseTextQuestion() {
         return TextQuestion.builder()
+                .id(getId())
                 .content(getContent())
                 .build();
     }

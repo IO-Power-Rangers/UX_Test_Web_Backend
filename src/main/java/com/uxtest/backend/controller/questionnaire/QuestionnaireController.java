@@ -1,4 +1,4 @@
-package com.uxtest.backend.controller;
+package com.uxtest.backend.controller.questionnaire;
 
 import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
