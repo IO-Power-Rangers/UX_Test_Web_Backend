@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -17,16 +18,25 @@ import java.util.List;
 @AllArgsConstructor
 public class CardSortingTestDTO {
     private Long id;
-    private List<Category> categories;
-    private List<Subject> subjects;
-    private List<CardSortingResult> results;
+    private List<CategoryDTO> categories;
+    private List<SubjectDTO> subjects;
+    private List<CardSortingResultDTO> results;
 
     public CardSortingTest parseTest() {
         return CardSortingTest.builder()
                 .id(this.getId())
-                .categories(this.getCategories())
-                .subjects(this.getSubjects())
-                .results(this.getResults())
+                .categories(this.getCategories()
+                    .stream()
+                    .map(CategoryDTO::parseCategory)
+                    .collect(Collectors.toList()))
+                .subjects(this.getSubjects()
+                    .stream()
+                    .map(SubjectDTO::parseSubject)
+                    .collect(Collectors.toList()))
+                .results(this.getResults()
+                    .stream()
+                    .map(CardSortingResultDTO::parseResult)
+                    .collect(Collectors.toList()))
                 .build();
     }
 }

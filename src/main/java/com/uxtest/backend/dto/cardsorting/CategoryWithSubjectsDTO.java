@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -19,17 +20,20 @@ import java.util.List;
 public class CategoryWithSubjectsDTO {
     private Long id;
     @NotNull
-    private Category category;
+    private CategoryDTO category;
     @NotNull
-    private CardSortingResult result;
-    private List<Subject> subjects;
+    private CardSortingResultDTO result;
+    private List<SubjectDTO> subjects;
 
     public CategoryWithSubjects parseCategoryWithSubjects() {
         return CategoryWithSubjects.builder()
                 .id(this.getId())
-                .category(this.getCategory())
-                .result(this.getResult())
-                .subjects(this.getSubjects())
+                .category(this.getCategory().parseCategory())
+                .result(this.getResult().parseResult())
+                .subjects(this.getSubjects()
+                    .stream()
+                    .map(SubjectDTO::parseSubject)
+                    .collect(Collectors.toList()))
                 .build();
     }
 }

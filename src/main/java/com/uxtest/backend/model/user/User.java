@@ -13,6 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Users")
@@ -52,7 +53,6 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties("user")
     private List<CardSortingResult> results;
 
     public UserDTO mapToDTO() {
@@ -64,7 +64,10 @@ public class User {
                 .lastName(this.getLastName())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(this.getRole().toString())
-                .results(this.results)
+                .results(this.getResults()
+                    .stream()
+                    .map(CardSortingResult::mapToDTO)
+                    .collect(Collectors.toList()))
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package com.uxtest.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uxtest.backend.dto.cardsorting.CardSortingResultDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -37,7 +39,7 @@ public class UserDTO {
 
     private Boolean recordingAgreement;
 
-    private List<CardSortingResult> results;
+    private List<CardSortingResultDTO> results;
 
     public User parseUser() {
         return User.builder()
@@ -47,7 +49,10 @@ public class UserDTO {
                 .password(this.getPassword())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(User.Role.valueOf(this.getRole()))
-                .results(this.getResults())
+                .results(this.getResults()
+                    .stream()
+                    .map(CardSortingResultDTO::parseResult)
+                    .collect(Collectors.toList()))
                 .build();
 
     }

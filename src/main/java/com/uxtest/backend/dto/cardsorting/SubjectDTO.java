@@ -21,16 +21,16 @@ public class SubjectDTO {
     private String name;
 
     @NotNull
-    private CardSortingTest test;
+    private CardSortingTestDTO test;
 
-    private CategoryWithSubjects categoryWithSubjects;
+    private CategoryWithSubjectsDTO categoryWithSubjects;
 
     public Subject parseSubject() {
         return Subject.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest())
-                .categoryWithSubjects(this.getCategoryWithSubjects())
+                .test(this.getTest().parseTest())
+                .categoryWithSubjects(this.getCategoryWithSubjects().parseCategoryWithSubjects())
                 .build();
     }
 }
