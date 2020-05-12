@@ -25,20 +25,18 @@ public class Subject {
 
     @ManyToOne
     @JoinColumn(name = "cardSortingTest_id")
-    @JsonIgnoreProperties("subjects")
     private CardSortingTest test;
 
     @ManyToOne
     @JoinColumn(name = "categoryWithSubjects_id")
-    @JsonIgnoreProperties("subjects")
     private CategoryWithSubjects categoryWithSubjects;
 
     public SubjectDTO mapToDTO() {
         return SubjectDTO.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest())
-                .categoryWithSubjects(this.getCategoryWithSubjects())
+                .test(this.getTest().mapToDTO())
+                .categoryWithSubjects(this.getCategoryWithSubjects().mapToDTO())
                 .build();
     }
 }

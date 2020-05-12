@@ -1,5 +1,6 @@
 package com.uxtest.backend.dto.cardsorting;
 
+import com.uxtest.backend.dto.UserDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
 import com.uxtest.backend.model.cardsorting.CategoryWithSubjects;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -19,17 +21,20 @@ import java.util.List;
 public class CardSortingResultDTO {
     private Long id;
     @NotNull
-    private CardSortingTest test;
+    private CardSortingTestDTO test;
     @NotNull
-    private User user;
-    private List<CategoryWithSubjects> categoriesWithSubjects;
+    private UserDTO user;
+    private List<CategoryWithSubjectsDTO> categoriesWithSubjects;
 
     public CardSortingResult parseResult() {
         return CardSortingResult.builder()
                 .id(this.getId())
-                .test(this.getTest())
-                .user(this.getUser())
-                .categoriesWithSubjects(this.getCategoriesWithSubjects())
+                .test(this.getTest().parseTest())
+                .user(this.getUser().parseUser())
+                .categoriesWithSubjects(this.getCategoriesWithSubjects()
+                        .stream()
+                        .map(CategoryWithSubjectsDTO::parseCategoryWithSubjects)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

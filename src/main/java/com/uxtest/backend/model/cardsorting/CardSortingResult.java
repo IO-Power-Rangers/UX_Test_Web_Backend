@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name="CardSortingResult")
 @Data
@@ -26,26 +27,26 @@ public class CardSortingResult {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "cardSortingTest_id")
-    @JsonIgnoreProperties("results")
     private CardSortingTest test;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "users_id")
-    @JsonIgnoreProperties("results")
     private User user;
 
     @NotNull
     @OneToMany(mappedBy = "result")
-    @JsonIgnoreProperties("result")
     private List<CategoryWithSubjects> categoriesWithSubjects;
 
     public CardSortingResultDTO mapToDTO() {
         return CardSortingResultDTO.builder()
                 .id(this.getId())
-                .test(this.getTest())
-                .user(this.getUser())
-                .categoriesWithSubjects(this.getCategoriesWithSubjects())
+                .test(this.getTest().mapToDTO())
+                .user(this.getUser().mapToDTO())
+                .categoriesWithSubjects(this.getCategoriesWithSubjects()
+                    .stream()
+                    .map(CategoryWithSubjects::mapToDTO)
+                    .collect(Collectors.toList()))
                 .build();
     }
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name="CategoryWithSubjects")
 @Data
@@ -25,25 +26,25 @@ public class CategoryWithSubjects {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnoreProperties("categoriesWithSubjects")
     private Category category;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "cardSortingResult_id")
-    @JsonIgnoreProperties("categoriesWithSubjects")
     private CardSortingResult result;
 
     @OneToMany(mappedBy = "categoryWithSubjects")
-    @JsonIgnoreProperties("categoryWithSubjects")
     private List<Subject> subjects;
 
     public CategoryWithSubjectsDTO mapToDTO() {
         return CategoryWithSubjectsDTO.builder()
                 .id(this.getId())
-                .category(this.getCategory())
-                .result(this.getResult())
-                .subjects(this.getSubjects())
+                .category(this.getCategory().mapToDTO())
+                .result(this.getResult().mapToDTO())
+                .subjects(this.getSubjects()
+                    .stream()
+                    .map(Subject::mapToDTO)
+                    .collect(Collectors.toList()))
                 .build();
     }
 }
