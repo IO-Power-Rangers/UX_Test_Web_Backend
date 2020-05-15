@@ -35,8 +35,6 @@ public class Subject {
         return SubjectDTO.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest().mapToDTO())
-                .categoryWithSubjects(this.getCategoryWithSubjects().mapToDTO())
                 .build();
     }
 }

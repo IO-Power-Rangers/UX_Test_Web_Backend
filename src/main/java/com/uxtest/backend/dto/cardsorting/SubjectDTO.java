@@ -1,5 +1,6 @@
 package com.uxtest.backend.dto.cardsorting;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
 import com.uxtest.backend.model.cardsorting.CategoryWithSubjects;
 import com.uxtest.backend.model.cardsorting.Subject;
@@ -17,20 +18,13 @@ import javax.validation.constraints.NotNull;
 public class SubjectDTO {
     private Long id;
 
-    @NotNull
+    @JsonProperty
     private String name;
-
-    @NotNull
-    private CardSortingTestDTO test;
-
-    private CategoryWithSubjectsDTO categoryWithSubjects;
 
     public Subject parseSubject() {
         return Subject.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest().parseTest())
-                .categoryWithSubjects(this.getCategoryWithSubjects().parseCategoryWithSubjects())
                 .build();
     }
 }

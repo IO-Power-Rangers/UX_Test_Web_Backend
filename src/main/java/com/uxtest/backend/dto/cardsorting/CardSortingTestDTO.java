@@ -1,5 +1,6 @@
 package com.uxtest.backend.dto.cardsorting;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
 import com.uxtest.backend.model.cardsorting.Category;
@@ -18,8 +19,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CardSortingTestDTO {
     private Long id;
+    @JsonProperty
     private List<CategoryDTO> categories;
+    @JsonProperty
     private List<SubjectDTO> subjects;
+    @JsonProperty
     private List<CardSortingResultDTO> results;
 
     public CardSortingTest parseTest() {

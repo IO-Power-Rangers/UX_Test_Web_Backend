@@ -40,7 +40,6 @@ public class Category {
         return CategoryDTO.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest().mapToDTO())
                 .categoriesWithSubjects(this.getCategoriesWithSubjects()
                     .stream()
                     .map(CategoryWithSubjects::mapToDTO)
