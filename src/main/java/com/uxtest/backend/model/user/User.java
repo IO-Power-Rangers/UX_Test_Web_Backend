@@ -52,9 +52,6 @@ public class User {
         TESTER
     }
 
-    @OneToMany(mappedBy = "user")
-    private List<CardSortingResult> results;
-
     public UserDTO mapToDTO() {
         return UserDTO.builder()
                 .id(this.getId())
@@ -64,10 +61,6 @@ public class User {
                 .lastName(this.getLastName())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(this.getRole().toString())
-                .results(this.getResults()
-                    .stream()
-                    .map(CardSortingResult::mapToDTO)
-                    .collect(Collectors.toList()))
                 .build();
     }
 

@@ -24,15 +24,12 @@ public class CardSortingResultDTO {
     @JsonProperty
     private CardSortingTestDTO test;
     @JsonProperty
-    private UserDTO user;
-    @JsonProperty
     private List<CategoryWithSubjectsDTO> categoriesWithSubjects;
 
     public CardSortingResult parseResult() {
         return CardSortingResult.builder()
                 .id(this.getId())
                 .test(this.getTest().parseTest())
-                .user(this.getUser().parseUser())
                 .categoriesWithSubjects(this.getCategoriesWithSubjects()
                         .stream()
                         .map(CategoryWithSubjectsDTO::parseCategoryWithSubjects)

@@ -30,6 +30,10 @@ public class CardSortingTest {
     @OneToMany(mappedBy = "test")
     private List<CardSortingResult> results;
 
+    public void addResult(CardSortingResult result){
+        results.add(result);
+    }
+
     public CardSortingTestDTO mapToDTO() {
         return CardSortingTestDTO.builder()
                 .id(this.getId())
@@ -40,10 +44,6 @@ public class CardSortingTest {
                 .subjects(this.getSubjects()
                     .stream()
                     .map(Subject::mapToDTO)
-                    .collect(Collectors.toList()))
-                .results(this.getResults()
-                    .stream()
-                    .map(CardSortingResult::mapToDTO)
                     .collect(Collectors.toList()))
                 .build();
     }

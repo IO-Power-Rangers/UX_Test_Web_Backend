@@ -39,8 +39,6 @@ public class UserDTO {
 
     private Boolean recordingAgreement;
 
-    private List<CardSortingResultDTO> results;
-
     public User parseUser() {
         return User.builder()
                 .email(this.getEmail())
@@ -49,10 +47,6 @@ public class UserDTO {
                 .password(this.getPassword())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(User.Role.valueOf(this.getRole()))
-                .results(this.getResults()
-                    .stream()
-                    .map(CardSortingResultDTO::parseResult)
-                    .collect(Collectors.toList()))
                 .build();
 
     }

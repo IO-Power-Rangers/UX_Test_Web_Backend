@@ -23,15 +23,12 @@ public class CategoryWithSubjectsDTO {
     @JsonProperty
     private CategoryDTO category;
     @JsonProperty
-    private CardSortingResultDTO result;
-    @JsonProperty
     private List<SubjectDTO> subjects;
 
     public CategoryWithSubjects parseCategoryWithSubjects() {
         return CategoryWithSubjects.builder()
                 .id(this.getId())
                 .category(this.getCategory().parseCategory())
-                .result(this.getResult().parseResult())
                 .subjects(this.getSubjects()
                     .stream()
                     .map(SubjectDTO::parseSubject)

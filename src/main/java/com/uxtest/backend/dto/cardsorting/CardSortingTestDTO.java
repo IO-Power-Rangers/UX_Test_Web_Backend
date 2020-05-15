@@ -23,8 +23,6 @@ public class CardSortingTestDTO {
     private List<CategoryDTO> categories;
     @JsonProperty
     private List<SubjectDTO> subjects;
-    @JsonProperty
-    private List<CardSortingResultDTO> results;
 
     public CardSortingTest parseTest() {
         return CardSortingTest.builder()
@@ -36,10 +34,6 @@ public class CardSortingTestDTO {
                 .subjects(this.getSubjects()
                     .stream()
                     .map(SubjectDTO::parseSubject)
-                    .collect(Collectors.toList()))
-                .results(this.getResults()
-                    .stream()
-                    .map(CardSortingResultDTO::parseResult)
                     .collect(Collectors.toList()))
                 .build();
     }

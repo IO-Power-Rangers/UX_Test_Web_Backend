@@ -25,17 +25,10 @@ public class CategoryDTO {
     @JsonProperty
     private String name;
 
-    @JsonProperty
-    private List<CategoryWithSubjectsDTO> categoriesWithSubjects;
-
     public Category parseCategory() {
         return Category.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .categoriesWithSubjects(this.getCategoriesWithSubjects()
-                    .stream()
-                    .map(CategoryWithSubjectsDTO::parseCategoryWithSubjects)
-                    .collect(Collectors.toList()))
                 .build();
     }
 }
