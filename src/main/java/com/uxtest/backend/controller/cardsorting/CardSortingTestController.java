@@ -1,8 +1,10 @@
 package com.uxtest.backend.controller.cardsorting;
 
+import com.uxtest.backend.dto.cardsorting.CardSortingResultDTO;
 import com.uxtest.backend.dto.cardsorting.CardSortingTestDTO;
 import com.uxtest.backend.dto.cardsorting.CategoryDTO;
 import com.uxtest.backend.dto.cardsorting.SubjectDTO;
+import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
 import com.uxtest.backend.model.cardsorting.Category;
 import com.uxtest.backend.model.cardsorting.Subject;
@@ -25,7 +27,7 @@ public class CardSortingTestController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public CardSortingTestDTO getCategory(@PathVariable("id") Long id) {
+    public CardSortingTestDTO getTest(@PathVariable("id") Long id) {
         return testService.getTestById(id).mapToDTO();
     }
 
@@ -34,6 +36,13 @@ public class CardSortingTestController {
     public List<CardSortingTestDTO> getTests() {
         return testService.getTests().stream().map(CardSortingTest::mapToDTO).collect(Collectors.toList());
     }
+
+    @GetMapping("/{id}/results")
+    @ResponseBody
+    public List<CardSortingResultDTO> getTestResults(@PathVariable("id") Long id) {
+        return testService.getTestById(id).getResults().stream().filter(r -> r.getTest().getId().equals(id)).map(CardSortingResult::mapToDTO).collect(Collectors.toList());
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
