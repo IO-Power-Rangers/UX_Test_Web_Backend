@@ -35,7 +35,7 @@ public class Subject {
             joinColumns = { @JoinColumn(name="subject_id")},
             inverseJoinColumns = { @JoinColumn(name = "categoryWithSubject_id")}
     )
-    private List<CategoryWithSubjects> categoriesWithSubjects = new ArrayList<>();
+    private List<CategoryWithSubjects> categoriesWithSubjects;
 
     public void addCategory(CategoryWithSubjects category){
         categoriesWithSubjects.add(category);

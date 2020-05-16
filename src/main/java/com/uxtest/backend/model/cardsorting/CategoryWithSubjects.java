@@ -35,7 +35,7 @@ public class CategoryWithSubjects {
     private CardSortingResult result;
 
     @ManyToMany(mappedBy = "categoriesWithSubjects")
-    private List<Subject> subjects = new ArrayList<>();
+    private List<Subject> subjects;
 
     public CategoryWithSubjectsDTO mapToDTO() {
         return CategoryWithSubjectsDTO.builder()
