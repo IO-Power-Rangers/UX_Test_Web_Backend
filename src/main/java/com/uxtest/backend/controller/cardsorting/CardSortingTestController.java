@@ -1,8 +1,14 @@
 package com.uxtest.backend.controller.cardsorting;
 
 import com.uxtest.backend.dto.cardsorting.CardSortingTestDTO;
+import com.uxtest.backend.dto.cardsorting.CategoryDTO;
+import com.uxtest.backend.dto.cardsorting.SubjectDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
+import com.uxtest.backend.model.cardsorting.Category;
+import com.uxtest.backend.model.cardsorting.Subject;
 import com.uxtest.backend.service.cardsorting.CardSortingTestService;
+import com.uxtest.backend.service.cardsorting.CategoryService;
+import com.uxtest.backend.service.cardsorting.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,15 +37,14 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<CategoryWithSubjects> categoriesWithSubjects;
 
+    public void addCategoryWithSubject(CategoryWithSubjects category){
+        categoriesWithSubjects.add(category);
+    }
+
     public CategoryDTO mapToDTO() {
         return CategoryDTO.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest().mapToDTO())
-                .categoriesWithSubjects(this.getCategoriesWithSubjects()
-                    .stream()
-                    .map(CategoryWithSubjects::mapToDTO)
-                    .collect(Collectors.toList()))
                 .build();
     }
 }

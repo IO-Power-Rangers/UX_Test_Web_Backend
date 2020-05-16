@@ -1,5 +1,6 @@
 package com.uxtest.backend.dto.cardsorting;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.dto.UserDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
@@ -20,17 +21,15 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CardSortingResultDTO {
     private Long id;
-    @NotNull
+    @JsonProperty
     private CardSortingTestDTO test;
-    @NotNull
-    private UserDTO user;
+    @JsonProperty
     private List<CategoryWithSubjectsDTO> categoriesWithSubjects;
 
     public CardSortingResult parseResult() {
         return CardSortingResult.builder()
                 .id(this.getId())
                 .test(this.getTest().parseTest())
-                .user(this.getUser().parseUser())
                 .categoriesWithSubjects(this.getCategoriesWithSubjects()
                         .stream()
                         .map(CategoryWithSubjectsDTO::parseCategoryWithSubjects)

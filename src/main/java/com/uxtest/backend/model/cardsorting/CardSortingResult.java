@@ -30,11 +30,6 @@ public class CardSortingResult {
     private CardSortingTest test;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "users_id")
-    private User user;
-
-    @NotNull
     @OneToMany(mappedBy = "result")
     private List<CategoryWithSubjects> categoriesWithSubjects;
 
@@ -42,7 +37,6 @@ public class CardSortingResult {
         return CardSortingResultDTO.builder()
                 .id(this.getId())
                 .test(this.getTest().mapToDTO())
-                .user(this.getUser().mapToDTO())
                 .categoriesWithSubjects(this.getCategoriesWithSubjects()
                     .stream()
                     .map(CategoryWithSubjects::mapToDTO)

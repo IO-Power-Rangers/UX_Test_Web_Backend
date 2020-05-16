@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,14 +34,13 @@ public class CategoryWithSubjects {
     @JoinColumn(name = "cardSortingResult_id")
     private CardSortingResult result;
 
-    @OneToMany(mappedBy = "categoryWithSubjects")
+    @ManyToMany(mappedBy = "categoriesWithSubjects")
     private List<Subject> subjects;
 
     public CategoryWithSubjectsDTO mapToDTO() {
         return CategoryWithSubjectsDTO.builder()
                 .id(this.getId())
                 .category(this.getCategory().mapToDTO())
-                .result(this.getResult().mapToDTO())
                 .subjects(this.getSubjects()
                     .stream()
                     .map(Subject::mapToDTO)

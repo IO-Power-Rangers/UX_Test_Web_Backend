@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,16 +29,22 @@ public class Subject {
     @JoinColumn(name = "cardSortingTest_id")
     private CardSortingTest test;
 
-    @ManyToOne
-    @JoinColumn(name = "categoryWithSubjects_id")
-    private CategoryWithSubjects categoryWithSubjects;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Subject_CategoryWithSubjects",
+            joinColumns = { @JoinColumn(name="subject_id")},
+            inverseJoinColumns = { @JoinColumn(name = "categoryWithSubject_id")}
+    )
+    private List<CategoryWithSubjects> categoriesWithSubjects;
+
+    public void addCategory(CategoryWithSubjects category){
+        categoriesWithSubjects.add(category);
+    }
 
     public SubjectDTO mapToDTO() {
         return SubjectDTO.builder()
                 .id(this.getId())
                 .name(this.getName())
-                .test(this.getTest().mapToDTO())
-                .categoryWithSubjects(this.getCategoryWithSubjects().mapToDTO())
                 .build();
     }
 }
