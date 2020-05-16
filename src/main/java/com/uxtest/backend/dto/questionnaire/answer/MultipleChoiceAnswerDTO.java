@@ -24,20 +24,12 @@ public class MultipleChoiceAnswerDTO {
     private Long id;
 
     @JsonProperty
-    private MultipleChoiceQuestionOptionDTO selectedOption;
+    private Long selectedOptionId;
 
     @JsonProperty
-    private MultipleChoiceQuestionDTO question;
+    private Long questionId;
 
     @JsonProperty
-    private UserDTO user;
+    private Long userId;
 
-    public MultipleChoiceAnswer parseMultipleChoiceAnswer() {
-        return MultipleChoiceAnswer.builder()
-                .id(getId())
-                .selectedOption(getSelectedOption().parseMultipleChoiceQuestionOption())
-                .question(getQuestion().parseMultipleChoiceQuestion())
-                .user(getUser().parseUser())
-                .build();
-    }
 }

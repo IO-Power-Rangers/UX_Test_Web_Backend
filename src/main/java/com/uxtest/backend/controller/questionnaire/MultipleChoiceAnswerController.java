@@ -1,7 +1,7 @@
 package com.uxtest.backend.controller.questionnaire;
 
 import com.uxtest.backend.dto.questionnaire.answer.MultipleChoiceAnswerDTO;
-import com.uxtest.backend.service.MultipleChoiceAnswerService;
+import com.uxtest.backend.service.questionnaire.MultipleChoiceAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +19,6 @@ public class MultipleChoiceAnswerController {
 
     @PostMapping
     public void add(@RequestBody MultipleChoiceAnswerDTO multipleChoiceAnswerDTO) {
-        multipleChoiceAnswerService.addMultipleChoiceAnswer(multipleChoiceAnswerDTO.parseMultipleChoiceAnswer());
+        multipleChoiceAnswerService.addMultipleChoiceAnswer(multipleChoiceAnswerDTO);
     }
 }

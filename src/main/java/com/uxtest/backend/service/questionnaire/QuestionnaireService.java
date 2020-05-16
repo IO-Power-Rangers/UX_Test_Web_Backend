@@ -1,7 +1,8 @@
-package com.uxtest.backend.service;
+package com.uxtest.backend.service.questionnaire;
 
+import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.repository.*;
+import com.uxtest.backend.repository.questionnaire.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,9 @@ public class QuestionnaireService {
         return questionnaireRepository.findAll();
     }
 
-    public void addQuestionnaire(Questionnaire questionnaire) {
+    public void addQuestionnaire(QuestionnaireDTO questionnaireDTO) {
+
+        var questionnaire = questionnaireDTO.parseQuestionnaire();
 
         questionnaireRepository.save(questionnaire);
 

@@ -21,18 +21,11 @@ public class MultipleAnswerAnswerDTO {
     private Long id;
 
     @JsonProperty
-    private List<MultipleAnswerQuestionOption> selectedOptions;
+    private List<Long> selectedOptionsIds;
 
     @JsonProperty
-    private MultipleAnswerQuestion question;
+    private Long questionId;
 
     @JsonProperty
-    private User user;
-
-//    public MultipleAnswerAnswer parseMultipleAnswerAnswer() {
-//        return MultipleAnswerAnswer.builder()
-//                .id(getId())
-//                .selectedOptions()
-//                .
-//    }
+    private Long userId;
 }

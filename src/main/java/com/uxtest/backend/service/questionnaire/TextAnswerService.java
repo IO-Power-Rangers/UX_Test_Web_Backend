@@ -1,9 +1,9 @@
-package com.uxtest.backend.service;
+package com.uxtest.backend.service.questionnaire;
 
+import com.uxtest.backend.dto.questionnaire.answer.TextAnswerDTO;
 import com.uxtest.backend.model.questionnaire.answer.TextAnswer;
-import com.uxtest.backend.model.questionnaire.question.TextQuestion;
-import com.uxtest.backend.repository.TextAnswerRepository;
-import com.uxtest.backend.repository.TextQuestionRepository;
+import com.uxtest.backend.repository.questionnaire.TextAnswerRepository;
+import com.uxtest.backend.repository.questionnaire.TextQuestionRepository;
 import com.uxtest.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,16 +25,18 @@ public class TextAnswerService {
         this.textQuestionRepository = textQuestionRepository;
     }
 
-    public void addTextAnswer(TextAnswer textAnswer) {
+    public void addTextAnswer(TextAnswerDTO textAnswerDTO) {
+        // here or create parse method in TextAnswerDTO
+        // resulting dependency to repository in DTO class?
 
-        var userId = textAnswer.getUser().getId();
-        var questionId = textAnswer.getQuestion().getId();
+        var user = userRepository.getOne(textAnswerDTO.getUserId());
+        var question = textQuestionRepository.getOne(textAnswerDTO.getQuestionId());
 
-        var user = userRepository.getOne(userId);
-        var question = textQuestionRepository.getOne(questionId);
-
-        textAnswer.setUser(user);
-        textAnswer.setQuestion(question);
+        TextAnswer textAnswer = TextAnswer.builder()
+                .answer(textAnswerDTO.getAnswer())
+                .user(user)
+                .question(question)
+                .build();
 
         textAnswerRepository.save(textAnswer);
     }

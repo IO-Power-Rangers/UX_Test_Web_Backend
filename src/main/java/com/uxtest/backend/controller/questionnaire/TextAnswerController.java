@@ -1,7 +1,7 @@
 package com.uxtest.backend.controller.questionnaire;
 
 import com.uxtest.backend.dto.questionnaire.answer.TextAnswerDTO;
-import com.uxtest.backend.service.TextAnswerService;
+import com.uxtest.backend.service.questionnaire.TextAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +19,6 @@ public class TextAnswerController {
 
     @PostMapping
     public void add(@RequestBody TextAnswerDTO textAnswerDTO) {
-        textAnswerService.addTextAnswer(textAnswerDTO.parseTextAnswer());
+        textAnswerService.addTextAnswer(textAnswerDTO);
     }
 }

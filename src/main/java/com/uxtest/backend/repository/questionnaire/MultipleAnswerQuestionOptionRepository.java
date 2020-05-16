@@ -1,4 +1,4 @@
-package com.uxtest.backend.repository;
+package com.uxtest.backend.repository.questionnaire;
 
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestionOption;
 import org.springframework.data.jpa.repository.JpaRepository;

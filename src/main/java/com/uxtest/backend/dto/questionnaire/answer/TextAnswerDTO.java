@@ -22,17 +22,8 @@ public class TextAnswerDTO {
     private String answer;
 
     @JsonProperty
-    private TextQuestionDTO question;
+    private Long questionId;
 
     @JsonProperty
-    private UserDTO user;
-
-    public TextAnswer parseTextAnswer() {
-
-        return TextAnswer.builder()
-                .answer(getAnswer())
-                .question(getQuestion().parseTextQuestion())
-                .user(getUser().parseUser())
-                .build();
-    }
+    private Long userId;
 }

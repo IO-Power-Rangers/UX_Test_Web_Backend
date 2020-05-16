@@ -32,14 +32,4 @@ public class LikertScaleAnswer {
     @ManyToOne
     @JoinColumn(nullable=false)
     private User user;
-
-    public LikertScaleAnswerDTO mapToDTO() {
-        return LikertScaleAnswerDTO.builder()
-                .id(getId())
-                .answer(getAnswer())
-                .question(getQuestion())
-                .user(getUser())
-                .build();
-
-    }
 }
