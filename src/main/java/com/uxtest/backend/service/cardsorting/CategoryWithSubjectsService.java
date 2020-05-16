@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -37,7 +38,6 @@ public class CategoryWithSubjectsService {
         subjects.forEach(s -> {
             Subject subject = subjectService.getSubjectById(s.getId());
             subject.addCategory(category);
-            subjectService.createSubject(subject);
         });
     }
 
