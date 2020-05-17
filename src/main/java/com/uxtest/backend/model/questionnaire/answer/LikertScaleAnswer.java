@@ -1,5 +1,6 @@
 package com.uxtest.backend.model.questionnaire.answer;
 
+import com.uxtest.backend.dto.questionnaire.answer.LikertScaleAnswerDTO;
 import com.uxtest.backend.model.questionnaire.question.LikertScaleQuestion;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;

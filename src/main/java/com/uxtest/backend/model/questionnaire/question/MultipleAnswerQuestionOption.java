@@ -1,6 +1,6 @@
 package com.uxtest.backend.model.questionnaire.question;
 
-import com.uxtest.backend.dto.MultipleAnswerQuestionOptionDTO;
+import com.uxtest.backend.dto.questionnaire.question.MultipleAnswerQuestionOptionDTO;
 import com.uxtest.backend.model.questionnaire.answer.MultipleAnswerAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +33,7 @@ public class MultipleAnswerQuestionOption {
 
     public MultipleAnswerQuestionOptionDTO mapToDTO() {
         return MultipleAnswerQuestionOptionDTO.builder()
+                .id(getId())
                 .content(getContent())
                 .build();
     }

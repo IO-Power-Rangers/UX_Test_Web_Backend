@@ -1,7 +1,7 @@
-package com.uxtest.backend.dto;
+package com.uxtest.backend.dto.questionnaire.question;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestionOption;
+import com.uxtest.backend.model.questionnaire.question.TextQuestion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +11,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MultipleAnswerQuestionOptionDTO {
+public class TextQuestionDTO {
+
+    @JsonProperty
+    private Long id;
 
     @JsonProperty
     private String content;
 
-    public MultipleAnswerQuestionOption parseMultipleAnswerQuestionOption() {
-        return MultipleAnswerQuestionOption.builder()
+    public TextQuestion parseTextQuestion() {
+        return TextQuestion.builder()
+                .id(getId())
                 .content(getContent())
                 .build();
     }

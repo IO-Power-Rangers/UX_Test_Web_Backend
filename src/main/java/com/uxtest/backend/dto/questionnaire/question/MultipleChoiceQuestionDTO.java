@@ -1,7 +1,8 @@
-package com.uxtest.backend.dto;
+package com.uxtest.backend.dto.questionnaire.question;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestion;
+import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestionOption;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,9 @@ import java.util.stream.Collectors;
 public class MultipleChoiceQuestionDTO {
 
     @JsonProperty
+    private Long id;
+
+    @JsonProperty
     private String content;
 
     @JsonProperty
@@ -24,11 +28,18 @@ public class MultipleChoiceQuestionDTO {
 
     public MultipleChoiceQuestion parseMultipleChoiceQuestion() {
 
-        return MultipleChoiceQuestion.builder()
-                .content(getContent())
-                .options(getOptions().stream()
+        List<MultipleChoiceQuestionOption> options = null;
+
+        if (getOptions() != null) {
+            options = getOptions().stream()
                     .map(MultipleChoiceQuestionOptionDTO::parseMultipleChoiceQuestionOption)
-                    .collect(Collectors.toList()))
+                    .collect(Collectors.toList());
+        }
+
+        return MultipleChoiceQuestion.builder()
+                .id(getId())
+                .content(getContent())
+                .options(options)
                 .build();
 
 

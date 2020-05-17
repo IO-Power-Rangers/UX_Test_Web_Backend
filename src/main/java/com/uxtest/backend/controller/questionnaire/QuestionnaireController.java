@@ -1,8 +1,8 @@
-package com.uxtest.backend.controller;
+package com.uxtest.backend.controller.questionnaire;
 
-import com.uxtest.backend.dto.QuestionnaireDTO;
+import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.service.QuestionnaireService;
+import com.uxtest.backend.service.questionnaire.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ public class QuestionnaireController {
     @PostMapping
     public void addQuestionnaire(@RequestBody QuestionnaireDTO questionnaireDTO) {
 
-        questionnaireService.addQuestionnaire(questionnaireDTO.parseQuestionnaire());
+        questionnaireService.addQuestionnaire(questionnaireDTO);
     }
 
     @GetMapping
@@ -33,5 +33,10 @@ public class QuestionnaireController {
         return questionnaireService.getAllQuestionnaires().stream()
                 .map(Questionnaire::mapToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public QuestionnaireDTO getQuestionnaireById(@PathVariable("id") Long id) {
+        return questionnaireService.getQuestionnaireById(id).mapToDTO();
     }
 }

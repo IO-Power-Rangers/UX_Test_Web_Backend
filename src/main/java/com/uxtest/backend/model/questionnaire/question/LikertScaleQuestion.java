@@ -1,7 +1,7 @@
 package com.uxtest.backend.model.questionnaire.question;
 
+import com.uxtest.backend.dto.questionnaire.question.LikertScaleQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
-import com.uxtest.backend.model.questionnaire.answer.LikertScaleAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -29,10 +27,16 @@ public class LikertScaleQuestion {
     @NotNull
     private int possibleStepsNo;
 
-    @OneToMany(mappedBy="question")
-    private List<LikertScaleAnswer> answers;
-
     @ManyToOne
     @JoinColumn(nullable=false)
     private Questionnaire questionnaire;
+
+
+    public LikertScaleQuestionDTO mapToDTO() {
+        return LikertScaleQuestionDTO.builder()
+                .id(getId())
+                .content(getContent())
+                .possibleStepsNo(getPossibleStepsNo())
+                .build();
+    }
 }

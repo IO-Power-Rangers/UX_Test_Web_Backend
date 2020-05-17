@@ -1,4 +1,4 @@
-package com.uxtest.backend.dto;
+package com.uxtest.backend.dto.questionnaire.question;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MultipleAnswerQuestionDTO {
+
+    @JsonProperty
+    private Long id;
 
     @JsonProperty
     private String content;

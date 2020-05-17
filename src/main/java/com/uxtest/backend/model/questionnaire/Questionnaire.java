@@ -1,6 +1,7 @@
 package com.uxtest.backend.model.questionnaire;
 
-import com.uxtest.backend.dto.QuestionnaireDTO;
+import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
+import com.uxtest.backend.model.questionnaire.question.LikertScaleQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestion;
 import com.uxtest.backend.model.questionnaire.question.TextQuestion;
@@ -38,15 +39,25 @@ public class Questionnaire {
     @OneToMany(mappedBy="questionnaire")
     private List<MultipleAnswerQuestion> multipleAnswerQuestions;
 
+    @OneToMany(mappedBy="questionnaire")
+    private List<LikertScaleQuestion> likertScaleQuestions;
+
 
     public QuestionnaireDTO mapToDTO() {
         return QuestionnaireDTO.builder()
+                .id(getId())
                 .name(getName())
                 .textQuestions(getTextQuestions().stream()
                         .map(TextQuestion::mapToDTO)
                         .collect(Collectors.toList()))
                 .multipleChoiceQuestions(getMultipleChoiceQuestions().stream()
                         .map(MultipleChoiceQuestion::mapToDTO)
+                        .collect(Collectors.toList()))
+                .multipleAnswerQuestions(getMultipleAnswerQuestions().stream()
+                        .map(MultipleAnswerQuestion::mapToDTO)
+                        .collect(Collectors.toList()))
+                .likertScaleQuestions(getLikertScaleQuestions().stream()
+                        .map(LikertScaleQuestion::mapToDTO)
                         .collect(Collectors.toList()))
                 .build();
     }
