@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/recordings")
 public class RecordingController {
@@ -22,19 +23,16 @@ public class RecordingController {
     @Autowired
     private TestService testService;
 
-//    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{videoId}", method = RequestMethod.GET)
     public @ResponseBody RecordingDTO getRecording(@PathVariable("videoId") Long videoId){
         return recordingService.getRecordingById(videoId).mapToDTO();
     }
 
-//    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/byTest/{testId}", method = RequestMethod.GET)
     public @ResponseBody List<RecordingDTO> getAllRecordingsInfo(@PathVariable("testId") Long testId){
-        return testService.getTestById(testId).getRecordings().stream().map(rec -> rec.mapToDTO(false)).collect(Collectors.toList());
+        return testService.getTestById(testId).getRecordingWithoutVideo().stream().map(Recording::mapToDTO).collect(Collectors.toList());
     }
 
-//    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody RecordingDTO addRecording(@RequestBody RecordingDTO recordingDTO) {
         System.out.println(recordingDTO.toString());

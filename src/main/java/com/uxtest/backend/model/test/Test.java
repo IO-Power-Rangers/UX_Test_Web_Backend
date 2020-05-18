@@ -2,8 +2,6 @@ package com.uxtest.backend.model.test;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.uxtest.backend.dto.TaskDTO;
 import com.uxtest.backend.dto.TestDTO;
 import com.uxtest.backend.model.recording.Recording;
 import com.uxtest.backend.model.uxmodel.UxModel;
@@ -45,13 +43,23 @@ public class Test {
     @JsonIgnoreProperties("test")
     private List<Recording> recordings;
 
+    @JsonIgnore
+    public List<Long> getRecordingsIds(){
+        return this.getRecordings().stream().map(Recording::getId).collect(Collectors.toList());
+    }
+
+    @JsonIgnore
+    public List<Recording> getRecordingWithoutVideo(){
+        return this.getRecordings().stream().peek(r->r.setVideo(null)).collect(Collectors.toList());
+    }
+
     public TestDTO mapToDTO() {
         return TestDTO.builder()
                 .id(this.getId())
                 .title(this.getTitle())
                 .tasks(this.getTasks())
                 .uxModel(this.getUxModel())
-                .recordingList(this.recordings.stream().map(Recording::getId).collect(Collectors.toList()))
+                .recordingList(this.getRecordingsIds())
                 .build();
     }
 }
