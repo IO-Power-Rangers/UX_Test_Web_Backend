@@ -3,13 +3,15 @@ package com.uxtest.backend.controller;
 import com.uxtest.backend.dto.UserDTO;
 import com.uxtest.backend.model.user.User;
 import com.uxtest.backend.service.UserService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -34,7 +36,6 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long createUser(@RequestBody UserDTO userDTO) {
-
         return userService.createUser(userDTO.parseUser());
     }
 
@@ -45,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/{email}/{role}")
-    public Long getIdFromExistingCustomer(@PathVariable("email") String email, @PathVariable("role")User.Role role){
-       return userService.getIdByEmailRole(email,role);
+    public Long getIdFromExistingCustomer(@PathVariable("email") String email, @PathVariable("role") User.Role role) {
+        return userService.getIdByEmailRole(email, role);
     }
 }
