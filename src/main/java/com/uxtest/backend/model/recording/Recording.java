@@ -1,6 +1,7 @@
 package com.uxtest.backend.model.recording;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.recording.RecordingDTO;
 import com.uxtest.backend.model.test.Test;
 import com.uxtest.backend.model.user.User;
@@ -29,16 +30,22 @@ public class Recording {
 
     @ManyToOne
     @JoinColumn(name="testId", nullable = false)
+    @JsonIgnoreProperties("recordings")
     private Test test;
 
     public byte[] video;
 
-    public RecordingDTO mapToDTO() {
+    public String getVideoBase64(){
+        if(video == null) return null;
+        return new String(Base64.encode(this.video));
+    }
+
+    public RecordingDTO mapToDTO(){
         return RecordingDTO.builder()
-                .id(this.getId())
-                .user(this.user.mapToDTO())
-                .test(this.test.mapToDTO())
-                .video(new String(Base64.encode(this.video)))
-                .build();
+                    .id(this.getId())
+                    .user(this.getUser().mapToDTO())
+                    .test(this.getTest().mapToDTO())
+                    .video(this.getVideoBase64())
+                    .build();
     }
 }
