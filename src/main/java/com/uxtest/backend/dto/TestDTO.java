@@ -1,5 +1,7 @@
 package com.uxtest.backend.dto;
 
+import com.uxtest.backend.dto.recording.RecordingDTO;
+import com.uxtest.backend.model.recording.Recording;
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
 import com.uxtest.backend.model.uxmodel.UxModel;
@@ -27,8 +29,11 @@ public class TestDTO {
     @NotNull
     private UxModel uxModel;
 
+    private List<Long> recordingList;
+
     public Test parseTest() {
         return Test.builder()
+                .id(this.getId())
                 .title(this.getTitle())
                 .tasks(this.getTasks())
                 .uxModel(this.getUxModel())

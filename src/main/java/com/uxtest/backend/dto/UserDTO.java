@@ -41,6 +41,7 @@ public class UserDTO {
 
     public User parseUser() {
         return User.builder()
+                .id(this.getId())
                 .email(this.getEmail())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())

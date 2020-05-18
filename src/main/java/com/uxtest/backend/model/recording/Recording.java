@@ -33,12 +33,16 @@ public class Recording {
 
     public byte[] video;
 
-    public RecordingDTO mapToDTO() {
+    public RecordingDTO mapToDTO(boolean withVideo){
         return RecordingDTO.builder()
-                .id(this.getId())
-                .user(this.user.mapToDTO())
-                .test(this.test.mapToDTO())
-                .video(new String(Base64.encode(this.video)))
-                .build();
+                    .id(this.getId())
+                    .user(this.user.mapToDTO())
+                    .test(this.test.mapToDTO())
+                    .video(withVideo ? new String(Base64.encode(this.video)) : null)
+                    .build();
+    }
+
+    public RecordingDTO mapToDTO() {
+        return this.mapToDTO(true);
     }
 }
