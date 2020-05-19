@@ -3,6 +3,8 @@ package com.uxtest.backend.controller.questionnaire;
 import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.service.questionnaire.QuestionnaireService;
+import com.uxtest.backend.dto.questionnaire.results.ResultsDTO;
+import com.uxtest.backend.model.questionnaire.question.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +40,15 @@ public class QuestionnaireController {
     @GetMapping("/{id}")
     public QuestionnaireDTO getQuestionnaireById(@PathVariable("id") Long id) {
         return questionnaireService.getQuestionnaireById(id).mapToDTO();
+    }
+
+    @GetMapping("/results/{id}")
+    public List<ResultsDTO> getQuestionnaireResults(@PathVariable Long id) {
+        List<ResultsDTO> results =  questionnaireService
+                .getQuestionsByQuestionnaireId(id)
+                .stream()
+                .map(Question::getResults)
+                .collect(Collectors.toList());
+        return results;
     }
 }
