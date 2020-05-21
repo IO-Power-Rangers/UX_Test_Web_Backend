@@ -1,9 +1,9 @@
 package com.uxtest.backend.service;
 
-import com.uxtest.backend.model.questionnaire.question.QuestionExport;
 import com.uxtest.backend.model.questionnaire.ExcelExport;
 import com.uxtest.backend.model.questionnaire.question.AnswerExport;
 import com.uxtest.backend.model.questionnaire.question.Question;
+import com.uxtest.backend.model.questionnaire.question.QuestionExport;
 import com.uxtest.backend.service.questionnaire.QuestionnaireService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.poi.ss.util.AreaReference;
@@ -30,17 +30,17 @@ public class ExportService {
     private QuestionnaireService questionnaireService;
 
 
-    public ExcelExport getExcelExport(long questionnaireId) throws IOException{
+    public ExcelExport getExcelExport(long questionnaireId) throws IOException {
         List<QuestionExport> exportData = getData(questionnaireId);
         String fileName = String.format(FILE_NAME_FORMAT, questionnaireId);
-        XSSFWorkbook workbook = createWorkbook(exportData,fileName);
+        XSSFWorkbook workbook = createWorkbook(exportData, fileName);
 
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
             workbook.write(byteArrayOutputStream);
             workbook.close();
             String base64String = Base64.encodeBase64String(byteArrayOutputStream.toByteArray());
 
-            return  new ExcelExport(base64String,fileName);
+            return new ExcelExport(base64String, fileName);
         }
     }
 
@@ -51,7 +51,7 @@ public class ExportService {
                 .map(Question::getExportData).collect(Collectors.toList());
     }
 
-    private XSSFWorkbook createWorkbook(List<QuestionExport> exportData,String fileName) {
+    private XSSFWorkbook createWorkbook(List<QuestionExport> exportData, String fileName) {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
 
