@@ -1,5 +1,7 @@
 package com.uxtest.backend.model.questionnaire.answer;
 
+import com.uxtest.backend.model.questionnaire.question.AnswerExport;
+import com.uxtest.backend.model.questionnaire.question.ExportDataAnswer;
 import com.uxtest.backend.model.questionnaire.question.TextQuestion;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TextAnswer {
+public class TextAnswer extends ExportDataAnswer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +33,9 @@ public class TextAnswer {
     @ManyToOne
     @JoinColumn(nullable=false)
     private User user;
+
+    @Override
+    public AnswerExport getAnswerExport() {
+        return new AnswerExport(answer,user);
+    }
 }

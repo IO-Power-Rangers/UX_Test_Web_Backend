@@ -1,8 +1,6 @@
 package com.uxtest.backend.model.questionnaire.answer;
 
-import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
-import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestionOption;
-import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestionOption;
+import com.uxtest.backend.model.questionnaire.question.*;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MultipleAnswerAnswer {
+public class MultipleAnswerAnswer extends ExportDataAnswer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +31,15 @@ public class MultipleAnswerAnswer {
     @ManyToOne
     @JoinColumn(nullable=false)
     private User user;
+
+    @Override
+    public AnswerExport getAnswerExport() {
+        StringBuilder builder = new StringBuilder();
+        for (MultipleAnswerQuestionOption option : selectedOptions){
+            builder.append(option.getContent());
+            builder.append(" ");
+        }
+        String answers = builder.toString();
+        return new AnswerExport(answers,user);
+    }
 }

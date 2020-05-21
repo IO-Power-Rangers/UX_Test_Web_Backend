@@ -2,6 +2,7 @@ package com.uxtest.backend.model.questionnaire.question;
 
 import com.uxtest.backend.dto.questionnaire.question.MultipleChoiceQuestionDTO;
 import com.uxtest.backend.dto.questionnaire.results.MultipleChoiceResultsDTO;
+import com.uxtest.backend.dto.questionnaire.results.QuestionType;
 import com.uxtest.backend.dto.questionnaire.results.ResultsDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.questionnaire.answer.MultipleChoiceAnswer;
@@ -63,4 +64,15 @@ public class MultipleChoiceQuestion implements Question {
                 )
                 .build();
     }
+
+    @Override
+    public List<? extends ExportDataAnswer> getDataAnswer() {
+        return answers;
+    }
+
+    @Override
+    public QuestionType getQuestionType() {
+        return QuestionType.MULTIPLE_CHOICE;
+    }
+
 }
