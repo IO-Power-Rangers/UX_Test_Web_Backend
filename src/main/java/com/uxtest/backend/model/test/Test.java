@@ -3,6 +3,7 @@ package com.uxtest.backend.model.test;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.TestDTO;
+import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.recording.Recording;
 import com.uxtest.backend.model.uxmodel.UxModel;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,9 @@ public class Test {
     @OneToMany(mappedBy = "test")
     @JsonIgnoreProperties("test")
     private List<Recording> recordings;
+
+    @OneToOne(mappedBy = "test")
+    private Questionnaire questionnaire;
 
     @JsonIgnore
     public List<Long> getRecordingsIds(){
