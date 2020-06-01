@@ -5,6 +5,7 @@ import com.uxtest.backend.model.questionnaire.question.LikertScaleQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleAnswerQuestion;
 import com.uxtest.backend.model.questionnaire.question.MultipleChoiceQuestion;
 import com.uxtest.backend.model.questionnaire.question.TextQuestion;
+import com.uxtest.backend.model.test.Test;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,10 @@ public class Questionnaire {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    //@NotNull na razie się nie da bo nie ma ani jednego testu w bazie
+    private Test test;
+
     @NotNull
     private String name;
 
@@ -47,6 +52,7 @@ public class Questionnaire {
         return QuestionnaireDTO.builder()
                 .id(getId())
                 .name(getName())
+                .test(getTest())
                 .textQuestions(getTextQuestions().stream()
                         .map(TextQuestion::mapToDTO)
                         .collect(Collectors.toList()))

@@ -6,6 +6,7 @@ import com.uxtest.backend.dto.questionnaire.question.MultipleAnswerQuestionDTO;
 import com.uxtest.backend.dto.questionnaire.question.MultipleChoiceQuestionDTO;
 import com.uxtest.backend.dto.questionnaire.question.TextQuestionDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
+import com.uxtest.backend.model.test.Test;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionnaireDTO {
+
+    @JsonProperty
+    private Test test;
 
     @JsonProperty
     private Long id;
@@ -42,6 +46,7 @@ public class QuestionnaireDTO {
 
         return Questionnaire.builder()
                 .name(getName())
+                .test(getTest())
                 .textQuestions(getTextQuestions().stream()
                         .map(TextQuestionDTO::parseTextQuestion)
                         .collect(Collectors.toList()))
