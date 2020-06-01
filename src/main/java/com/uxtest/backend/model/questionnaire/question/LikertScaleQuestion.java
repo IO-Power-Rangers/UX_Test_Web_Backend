@@ -1,12 +1,11 @@
 package com.uxtest.backend.model.questionnaire.question;
 
 import com.uxtest.backend.dto.questionnaire.question.LikertScaleQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.results.QuestionType;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.dto.questionnaire.results.LikertScaleResultsDTO;
 import com.uxtest.backend.dto.questionnaire.results.ResultsDTO;
-import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.questionnaire.answer.LikertScaleAnswer;
-import com.uxtest.backend.model.questionnaire.answer.MultipleChoiceAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -63,5 +61,16 @@ public class LikertScaleQuestion implements Question {
                 )
                 .build();
         }
+
+    @Override
+    public List<? extends ExportDataAnswer> getDataAnswer() {
+        return answers;
+    }
+
+    @Override
+    public QuestionType getQuestionType() {
+        return QuestionType.LIKERT_SCALE;
+    }
+
 
 }

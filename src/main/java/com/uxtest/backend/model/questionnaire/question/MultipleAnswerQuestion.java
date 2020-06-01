@@ -1,6 +1,7 @@
 package com.uxtest.backend.model.questionnaire.question;
 
 import com.uxtest.backend.dto.questionnaire.question.MultipleAnswerQuestionDTO;
+import com.uxtest.backend.dto.questionnaire.results.QuestionType;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 
 import com.uxtest.backend.dto.questionnaire.results.MultipleAnswerResultsDTO;
@@ -68,4 +69,15 @@ public class MultipleAnswerQuestion implements Question {
                 )
                 .build();
     }
+
+    @Override
+    public List<? extends ExportDataAnswer> getDataAnswer() {
+        return answers;
+    }
+
+    @Override
+    public QuestionType getQuestionType() {
+        return QuestionType.MULTIPLE_ANSWER;
+    }
+
 }

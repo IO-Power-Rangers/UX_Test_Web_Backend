@@ -35,7 +35,6 @@ public class RecordingController {
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody RecordingDTO addRecording(@RequestBody RecordingDTO recordingDTO) {
-        System.out.println(recordingDTO.toString());
         recordingService.createRecording(recordingDTO.parseRecording());
         return recordingDTO;
     }
