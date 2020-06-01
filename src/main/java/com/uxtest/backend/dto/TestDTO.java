@@ -5,6 +5,7 @@ import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.recording.Recording;
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.user.User;
 import com.uxtest.backend.model.uxmodel.UxModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,8 @@ public class TestDTO {
 
     private Questionnaire questionnaire;
 
+    private User creator;
+
     @NotNull
     private String title;
 
@@ -41,6 +44,7 @@ public class TestDTO {
                 .tasks(this.getTasks())
                 .uxModel(this.getUxModel())
                 .questionnaire(this.getQuestionnaire())
+                .creator(this.getCreator())
                 .build();
     }
 }

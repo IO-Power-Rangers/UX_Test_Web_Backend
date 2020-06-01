@@ -3,6 +3,8 @@ package com.uxtest.backend.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.UserDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
+import com.uxtest.backend.model.test.Task;
+import com.uxtest.backend.model.test.Test;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +28,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "creator")
+    @JsonIgnoreProperties("creator")
+    private List<Test> tests;
 
     @NotNull
     @Email
@@ -52,6 +58,8 @@ public class User {
         TESTER
     }
 
+    public void addTest(Test test) {this.tests.add(test);}
+
     public UserDTO mapToDTO() {
         return UserDTO.builder()
                 .id(this.getId())
@@ -61,6 +69,7 @@ public class User {
                 .lastName(this.getLastName())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(this.getRole().toString())
+                .tests(this.getTests())
                 .build();
     }
 

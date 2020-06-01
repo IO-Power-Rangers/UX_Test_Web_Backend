@@ -3,6 +3,7 @@ package com.uxtest.backend.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.uxtest.backend.dto.cardsorting.CardSortingResultDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
+import com.uxtest.backend.model.test.Test;
 import com.uxtest.backend.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,8 @@ import java.util.stream.Collectors;
 public class UserDTO {
 
     private Long id;
+
+    private List<Test> tests;
 
     @NotNull
     @Email
@@ -48,6 +51,7 @@ public class UserDTO {
                 .password(this.getPassword())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(User.Role.valueOf(this.getRole()))
+                .tests(this.tests)
                 .build();
 
     }
