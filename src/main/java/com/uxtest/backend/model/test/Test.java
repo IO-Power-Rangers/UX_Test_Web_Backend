@@ -3,7 +3,9 @@ package com.uxtest.backend.model.test;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.TestDTO;
+import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.recording.Recording;
+import com.uxtest.backend.model.user.User;
 import com.uxtest.backend.model.uxmodel.UxModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +27,15 @@ public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    @JsonIgnoreProperties("tests")
+    private User creator;
+
+    @OneToOne(mappedBy = "test")
+    @JsonIgnoreProperties("test")
+    private Questionnaire questionnaire;
 
     @NotNull
     private String title;
@@ -60,6 +71,8 @@ public class Test {
                 .tasks(this.getTasks())
                 .uxModel(this.getUxModel())
                 .recordingList(this.getRecordingsIds())
+                .questionnaire(this.getQuestionnaire())
+                .creator(this.getCreator())
                 .build();
     }
 }

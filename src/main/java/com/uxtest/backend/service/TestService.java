@@ -26,6 +26,7 @@ public class TestService {
     public void createTest(Test test) {
         test.getUxModel().getTests().add(test);
         test.getTasks().forEach(task->task.setTest(test));
+//        test.getCreator().addTest(test);
         testRepository.save(test);
     }
 

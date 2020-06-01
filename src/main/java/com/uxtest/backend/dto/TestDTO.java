@@ -1,9 +1,11 @@
 package com.uxtest.backend.dto;
 
 import com.uxtest.backend.dto.recording.RecordingDTO;
+import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.recording.Recording;
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.user.User;
 import com.uxtest.backend.model.uxmodel.UxModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +23,10 @@ import java.util.Set;
 public class TestDTO {
     private Long id;
 
+    private Questionnaire questionnaire;
+
+    private User creator;
+
     @NotNull
     private String title;
 
@@ -37,6 +43,8 @@ public class TestDTO {
                 .title(this.getTitle())
                 .tasks(this.getTasks())
                 .uxModel(this.getUxModel())
+                .questionnaire(this.getQuestionnaire())
+                .creator(this.getCreator())
                 .build();
     }
 }

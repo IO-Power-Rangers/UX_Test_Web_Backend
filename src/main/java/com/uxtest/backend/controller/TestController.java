@@ -3,9 +3,11 @@ package com.uxtest.backend.controller;
 import com.uxtest.backend.dto.TestDTO;
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
+import com.uxtest.backend.model.user.User;
 import com.uxtest.backend.model.uxmodel.UxModel;
 import com.uxtest.backend.service.TaskService;
 import com.uxtest.backend.service.TestService;
+import com.uxtest.backend.service.UserService;
 import com.uxtest.backend.service.UxModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ public class TestController {
     private TaskService taskService;
     @Autowired
     private UxModelService uxModelService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/{id}")
     @ResponseBody
@@ -44,7 +48,9 @@ public class TestController {
     public void createTest(@RequestBody TestDTO testDTO) {
         Test test = testDTO.parseTest();
         test.getTasks().forEach(task->taskService.createTask(task));
+        User creator = test.getCreator();
         UxModel uxModel = test.getUxModel();
+        userService.updateUser(creator, creator.getId());
         try {
             uxModelService.updateUxModel(uxModel, uxModel.getAxLink());
         }catch(ResponseStatusException e){
