@@ -28,15 +28,15 @@ public class LikertScaleAnswer extends ExportDataAnswer {
     private int answer;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private LikertScaleQuestion question;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private User user;
 
     @Override
     public AnswerExport getAnswerExport() {
-        return new AnswerExport(String.valueOf(answer),user);
+        return new AnswerExport(String.valueOf(answer), user);
     }
 }

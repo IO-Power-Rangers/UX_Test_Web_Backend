@@ -25,21 +25,21 @@ public class MultipleAnswerAnswer extends ExportDataAnswer {
     private List<MultipleAnswerQuestionOption> selectedOptions;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private MultipleAnswerQuestion question;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private User user;
 
     @Override
     public AnswerExport getAnswerExport() {
         StringBuilder builder = new StringBuilder();
-        for (MultipleAnswerQuestionOption option : selectedOptions){
+        for (MultipleAnswerQuestionOption option : selectedOptions) {
             builder.append(option.getContent());
             builder.append(" ");
         }
         String answers = builder.toString();
-        return new AnswerExport(answers,user);
+        return new AnswerExport(answers, user);
     }
 }

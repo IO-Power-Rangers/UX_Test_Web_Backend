@@ -17,8 +17,10 @@ public interface Question {
 
     QuestionType getQuestionType();
 
-    default QuestionExport getExportData(){
+    default QuestionExport getExportData() {
         List<AnswerExport> answerExportList = getDataAnswer().stream().map(ExportDataAnswer::getAnswerExport).collect(toList());
-        return new QuestionExport(answerExportList, getContent(),getQuestionType());
-    };
+        return new QuestionExport(answerExportList, getContent(), getQuestionType());
+    }
+
+    ;
 }

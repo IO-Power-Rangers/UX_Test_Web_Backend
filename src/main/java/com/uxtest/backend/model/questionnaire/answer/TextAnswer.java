@@ -27,15 +27,15 @@ public class TextAnswer extends ExportDataAnswer {
     private String answer;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private TextQuestion question;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private User user;
 
     @Override
     public AnswerExport getAnswerExport() {
-        return new AnswerExport(answer,user);
+        return new AnswerExport(answer, user);
     }
 }

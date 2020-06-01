@@ -108,7 +108,7 @@ public class ExportService {
     private int parseQuestion(XSSFSheet sheet, QuestionExport questionExport, int rowCounter, int questionCounter) {
         List<AnswerExport> answerExportList = questionExport.getAnswerExportList();
         String question = questionExport.getQuestion();
-        String type = questionExport.getQuestionType().getLowerCase();
+        String type = questionExport.getQuestionType().getLowerCaseWithWhiteSpaces();
         for (AnswerExport answerExports : answerExportList) {
             rowCounter = parseRow(sheet, answerExports, question, questionCounter, rowCounter, type);
         }

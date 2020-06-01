@@ -10,7 +10,7 @@ public enum QuestionType {
         return this.toString();
     }
 
-    public String getLowerCase(){
+    public String getLowerCaseWithWhiteSpaces() {
         return this.toString().toLowerCase().replace('_', ' ');
     }
 

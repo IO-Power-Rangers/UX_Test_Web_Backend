@@ -24,19 +24,19 @@ public class MultipleChoiceAnswer extends ExportDataAnswer {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private MultipleChoiceQuestionOption selectedOption;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private MultipleChoiceQuestion question;
 
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private User user;
 
     @Override
     public AnswerExport getAnswerExport() {
-        return new AnswerExport(selectedOption.getContent(),user);
+        return new AnswerExport(selectedOption.getContent(), user);
     }
 }
