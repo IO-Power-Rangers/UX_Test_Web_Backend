@@ -3,7 +3,9 @@ package com.uxtest.backend.service.questionnaire;
 import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.questionnaire.question.Question;
+import com.uxtest.backend.repository.TestRepository;
 import com.uxtest.backend.repository.questionnaire.*;
+import com.uxtest.backend.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class QuestionnaireService {
     private final MultipleAnswerQuestionOptionRepository multipleAnswerQuestionOptionRepository;
     private final LikertScaleQuestionRepository likertScaleQuestionRepository;
 
+    private final TestService testService;
+
     @Autowired
     public QuestionnaireService(QuestionnaireRepository questionnaireRepository,
                                 TextQuestionRepository textQuestionRepository,
@@ -30,7 +34,8 @@ public class QuestionnaireService {
                                 MultipleChoiceQuestionOptionRepository multipleChoiceQuestionOptionRepository,
                                 MultipleAnswerQuestionRepository multipleAnswerQuestionRepository,
                                 MultipleAnswerQuestionOptionRepository multipleAnswerQuestionOptionRepository,
-                                LikertScaleQuestionRepository likertScaleQuestionRepository) {
+                                LikertScaleQuestionRepository likertScaleQuestionRepository,
+                                TestService testService) {
 
         this.questionnaireRepository = questionnaireRepository;
         this.textQuestionRepository = textQuestionRepository;
@@ -39,6 +44,7 @@ public class QuestionnaireService {
         this.multipleAnswerQuestionRepository = multipleAnswerQuestionRepository;
         this.multipleAnswerQuestionOptionRepository = multipleAnswerQuestionOptionRepository;
         this.likertScaleQuestionRepository = likertScaleQuestionRepository;
+        this.testService = testService;
     }
 
     public List<Questionnaire> getAllQuestionnaires() {
@@ -48,7 +54,11 @@ public class QuestionnaireService {
 
     public void addQuestionnaire(QuestionnaireDTO questionnaireDTO) {
 
+        var test = testService.getTestById(questionnaireDTO.getTestId());
+
         var questionnaire = questionnaireDTO.parseQuestionnaire();
+
+        questionnaire.setTest(test);
 
         questionnaireRepository.save(questionnaire);
 
