@@ -45,7 +45,7 @@ public class TestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createTest(@RequestBody TestDTO testDTO) {
+    public Long createTest(@RequestBody TestDTO testDTO) {
         Test test = testDTO.parseTest();
         test.getTasks().forEach(task->taskService.createTask(task));
         User creator = test.getCreator();
@@ -57,6 +57,10 @@ public class TestController {
             uxModelService.createUxModel(uxModel);
         }
         testService.createTest(test);
+
+
+
+        return test.getId();
     }
 
     @PutMapping("/{id}")

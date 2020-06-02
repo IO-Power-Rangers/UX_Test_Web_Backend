@@ -29,10 +29,9 @@ public class Questionnaire {
     private Long id;
 
     @OneToOne
-    //@NotNull na razie się nie da bo nie ma ani jednego testu w bazie
+    @NotNull
     private Test test;
 
-    @NotNull
     private String name;
 
     @OneToMany(mappedBy="questionnaire")
@@ -52,7 +51,6 @@ public class Questionnaire {
         return QuestionnaireDTO.builder()
                 .id(getId())
                 .name(getName())
-                .test(getTest())
                 .textQuestions(getTextQuestions().stream()
                         .map(TextQuestion::mapToDTO)
                         .collect(Collectors.toList()))

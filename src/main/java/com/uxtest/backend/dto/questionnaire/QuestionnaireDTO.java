@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class QuestionnaireDTO {
 
     @JsonProperty
-    private Test test;
+    private Long testId;
 
     @JsonProperty
     private Long id;
@@ -46,7 +46,6 @@ public class QuestionnaireDTO {
 
         return Questionnaire.builder()
                 .name(getName())
-                .test(getTest())
                 .textQuestions(getTextQuestions().stream()
                         .map(TextQuestionDTO::parseTextQuestion)
                         .collect(Collectors.toList()))
