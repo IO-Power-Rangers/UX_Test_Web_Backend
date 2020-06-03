@@ -50,7 +50,6 @@ public class TestDTO {
                 .title(this.getTitle())
                 .tasks(this.getTasks().stream().map(TaskDTO::parseTask).collect(Collectors.toList()))
                 .uxModel(this.getUxModel().parseUxModel())
-               // .questionnaire(this.getQuestionnaire().parseQuestionnaire())
                 .creator(this.getCreator().parseUser())
                 .build();
     }

@@ -36,11 +36,9 @@ public class TestService {
 
 
     public void createTest(Test test) {
-        //Questionnaire questionnaire = test.getQuestionnaire();
         User creator = test.getCreator();
         List<Task> tasks = test.getTasks();
         UxModel uxModel = test.getUxModel();
-        //saveQuestionnaire(questionnaire, test);
         saveCreator(creator, test);
         testRepository.save(test);
         saveTasks(tasks, test);
