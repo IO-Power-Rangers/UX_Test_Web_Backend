@@ -24,13 +24,10 @@ public class TaskDTO {
     @NotNull
     private String description;
 
-    private Test test;
-
     public Task parseTask() {
         return Task.builder()
                 .name(this.getName())
                 .description(this.getDescription())
-                .test(this.getTest())
                 .index(this.getIndex())
                 .build();
     }

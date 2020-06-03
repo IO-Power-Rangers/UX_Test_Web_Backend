@@ -23,8 +23,6 @@ public class UserDTO {
 
     private Long id;
 
-    private List<Test> tests;
-
     @NotNull
     @Email
     private String email;
@@ -51,7 +49,6 @@ public class UserDTO {
                 .password(this.getPassword())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(User.Role.valueOf(this.getRole()))
-                .tests(this.tests)
                 .build();
 
     }

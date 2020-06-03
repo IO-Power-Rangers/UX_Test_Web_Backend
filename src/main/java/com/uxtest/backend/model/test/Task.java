@@ -31,7 +31,6 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "test_id")
-    @JsonIgnoreProperties("tasks")
     private Test test;
 
 
@@ -40,7 +39,6 @@ public class Task {
                 .id(this.getId())
                 .name(this.getName())
                 .description(this.getDescription())
-                .test(this.getTest())
                 .build();
     }
 }

@@ -18,12 +18,9 @@ import java.util.List;
 public class UxModelDTO {
     private URL axLink;
 
-    private List<Test> tests;
-
     public UxModel parseUxModel() {
         return UxModel.builder()
                 .axLink(this.getAxLink())
-                .tests(this.getTests())
                 .build();
     }
 }

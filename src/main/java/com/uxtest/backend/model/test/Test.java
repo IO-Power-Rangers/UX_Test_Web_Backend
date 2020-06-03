@@ -30,28 +30,23 @@ public class Test {
 
     @ManyToOne
     @JoinColumn(name = "users_id")
-    @JsonIgnoreProperties("tests")
     private User creator;
 
     @OneToOne(mappedBy = "test")
-    @JsonIgnoreProperties("test")
     private Questionnaire questionnaire;
 
     @NotNull
     private String title;
 
     @OneToMany(mappedBy = "test")
-    @JsonIgnoreProperties("test")
     private List<Task> tasks;
 
     @ManyToOne
     @JoinColumn(name = "uxModel_axLink")
-    @JsonIgnoreProperties("tests")
     @NotNull
     private UxModel uxModel;
 
     @OneToMany(mappedBy = "test")
-    @JsonIgnoreProperties("test")
     private List<Recording> recordings;
 
     @JsonIgnore
@@ -65,14 +60,25 @@ public class Test {
     }
 
     public TestDTO mapToDTO() {
-        return TestDTO.builder()
-                .id(this.getId())
-                .title(this.getTitle())
-                .tasks(this.getTasks())
-                .uxModel(this.getUxModel())
-                .recordingList(this.getRecordingsIds())
-                .questionnaire(this.getQuestionnaire())
-                .creator(this.getCreator())
-                .build();
+        if(this.getQuestionnaire()!=null)
+            return TestDTO.builder()
+                    .id(this.getId())
+                    .title(this.getTitle())
+                    .tasks(this.getTasks().stream().map(Task::mapToDTO).collect(Collectors.toList()))
+                    .uxModel(this.getUxModel().mapToDTO())
+                    .recordingList(this.getRecordingsIds())
+                    .questionnaire(this.getQuestionnaire().mapToDTO())
+                    .creator(this.getCreator().mapToDTO())
+                    .build();
+        else
+            return TestDTO.builder()
+                    .id(this.getId())
+                    .title(this.getTitle())
+                    .tasks(this.getTasks().stream().map(Task::mapToDTO).collect(Collectors.toList()))
+                    .uxModel(this.getUxModel().mapToDTO())
+                    .recordingList(this.getRecordingsIds())
+                    .creator(this.getCreator().mapToDTO())
+                    .build();
+
     }
 }

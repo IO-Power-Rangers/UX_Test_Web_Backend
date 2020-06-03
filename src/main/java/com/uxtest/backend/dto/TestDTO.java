@@ -1,5 +1,7 @@
 package com.uxtest.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.uxtest.backend.dto.questionnaire.QuestionnaireDTO;
 import com.uxtest.backend.dto.recording.RecordingDTO;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.recording.Recording;
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -23,17 +26,21 @@ import java.util.Set;
 public class TestDTO {
     private Long id;
 
-    private Questionnaire questionnaire;
+    @JsonProperty
+    private QuestionnaireDTO questionnaire;
 
-    private User creator;
+    @JsonProperty
+    private UserDTO creator;
 
     @NotNull
     private String title;
 
-    private List<Task> tasks;
+    @JsonProperty
+    private List<TaskDTO> tasks;
 
+    @JsonProperty
     @NotNull
-    private UxModel uxModel;
+    private UxModelDTO uxModel;
 
     private List<Long> recordingList;
 
@@ -41,10 +48,10 @@ public class TestDTO {
         return Test.builder()
                 .id(this.getId())
                 .title(this.getTitle())
-                .tasks(this.getTasks())
-                .uxModel(this.getUxModel())
-                .questionnaire(this.getQuestionnaire())
-                .creator(this.getCreator())
+                .tasks(this.getTasks().stream().map(TaskDTO::parseTask).collect(Collectors.toList()))
+                .uxModel(this.getUxModel().parseUxModel())
+               // .questionnaire(this.getQuestionnaire().parseQuestionnaire())
+                .creator(this.getCreator().parseUser())
                 .build();
     }
 }

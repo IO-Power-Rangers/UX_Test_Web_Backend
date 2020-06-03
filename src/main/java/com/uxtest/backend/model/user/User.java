@@ -30,7 +30,6 @@ public class User {
     private Long id;
 
     @OneToMany(mappedBy = "creator")
-    @JsonIgnoreProperties("creator")
     private List<Test> tests;
 
     @NotNull
@@ -69,7 +68,6 @@ public class User {
                 .lastName(this.getLastName())
                 .recordingAgreement(this.getRecordingAgreement())
                 .role(this.getRole().toString())
-                .tests(this.getTests())
                 .build();
     }
 
