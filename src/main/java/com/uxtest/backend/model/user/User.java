@@ -3,6 +3,7 @@ package com.uxtest.backend.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.UserDTO;
 import com.uxtest.backend.model.cardsorting.CardSortingResult;
+import com.uxtest.backend.model.cardsorting.CardSortingTest;
 import com.uxtest.backend.model.test.Task;
 import com.uxtest.backend.model.test.Test;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,9 @@ public class User {
 
     @OneToMany(mappedBy = "creator")
     private List<Test> tests;
+
+    @OneToMany(mappedBy = "creator")
+    private List<CardSortingTest> cardSortingTests;
 
     @NotNull
     @Email
