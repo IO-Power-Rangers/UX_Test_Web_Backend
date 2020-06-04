@@ -3,6 +3,8 @@ package com.uxtest.backend.service.cardsorting;
 import com.uxtest.backend.model.cardsorting.CardSortingTest;
 import com.uxtest.backend.model.cardsorting.Category;
 import com.uxtest.backend.model.cardsorting.Subject;
+import com.uxtest.backend.model.user.User;
+import com.uxtest.backend.repository.UserRepository;
 import com.uxtest.backend.repository.cardsorting.CardSortingTestRepository;
 import com.uxtest.backend.repository.cardsorting.CategoryRepository;
 import com.uxtest.backend.repository.cardsorting.SubjectRepository;
@@ -21,6 +23,8 @@ public class CardSortingTestService {
     CategoryRepository categoryRepository;
     @Autowired
     SubjectRepository subjectRepository;
+    @Autowired
+    UserRepository userRepository;
 
     public CardSortingTest getTestById(Long id) {
         return testRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Test not found"));
@@ -30,6 +34,13 @@ public class CardSortingTestService {
         testRepository.save(cardSortingTest);
         saveSubjects(cardSortingTest.getSubjects(), cardSortingTest);
         saveCategories(cardSortingTest.getCategories(), cardSortingTest);
+        saveCreator(cardSortingTest.getCreator(), cardSortingTest);
+    }
+
+    private void saveCreator(User creator, CardSortingTest cardSortingTest) {
+        User user = userRepository.getOne(creator.getId());
+        user.getCardSortingTests().add(cardSortingTest);
+        userRepository.save(user);
     }
 
     private void saveCategories(List<Category> categories, CardSortingTest test) {

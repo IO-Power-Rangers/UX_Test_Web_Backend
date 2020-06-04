@@ -23,13 +23,11 @@ public class UxModel {
     URL axLink;
 
     @OneToMany(mappedBy = "uxModel")
-    @JsonIgnoreProperties("uxModel")
     private List<Test> tests;
 
     public UxModelDTO mapToDTO() {
         return UxModelDTO.builder()
                 .axLink(this.getAxLink())
-                .tests(this.getTests())
                 .build();
     }
 }

@@ -47,19 +47,7 @@ public class TestController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long createTest(@RequestBody TestDTO testDTO) {
         Test test = testDTO.parseTest();
-        test.getTasks().forEach(task->taskService.createTask(task));
-        User creator = test.getCreator();
-        UxModel uxModel = test.getUxModel();
-        userService.updateUser(creator, creator.getId());
-        try {
-            uxModelService.updateUxModel(uxModel, uxModel.getAxLink());
-        }catch(ResponseStatusException e){
-            uxModelService.createUxModel(uxModel);
-        }
         testService.createTest(test);
-
-
-
         return test.getId();
     }
 
