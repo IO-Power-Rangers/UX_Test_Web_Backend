@@ -18,19 +18,21 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class TestGroup {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String name;
 
     @OneToOne
-    @MapsId
+    @NotNull
     private Test test;
 
     public TestGroupDTO mapToDTO() {
         return TestGroupDTO.builder()
                 .id(this.getId())
                 .name(this.getName())
+                .testId(this.getTest().getId())
                 .build();
     }
 }

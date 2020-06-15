@@ -16,13 +16,16 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TestGroupDTO {
+    @JsonProperty
     private Long id;
 
+    @JsonProperty
     @NotNull
     private String name;
 
     @JsonProperty
-    private Test test;
+    @NotNull
+    private Long testId;
 
     public TestGroup parseTestGroup(){
         return TestGroup.builder()

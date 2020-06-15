@@ -1,7 +1,7 @@
 package com.uxtest.backend.service;
 
+import com.uxtest.backend.dto.TestGroupDTO;
 import com.uxtest.backend.model.grouping.TestGroup;
-import com.uxtest.backend.model.test.Test;
 import com.uxtest.backend.repository.TestGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,14 +12,26 @@ import java.util.List;
 
 @Service
 public class TestGroupService {
+    private final TestService testService;
+    private final TestGroupRepository testGroupRepository;
+
     @Autowired
-    private TestGroupRepository testGroupRepository;
+    public TestGroupService(TestService testService, TestGroupRepository testGroupRepository) {
+        this.testService = testService;
+        this.testGroupRepository = testGroupRepository;
+    }
+
+
 
     public List<TestGroup> getGroup() {
         return this.testGroupRepository.findAll();
     }
 
-    public void createTestGroup(TestGroup testGroup){
+    public void createTestGroup(TestGroupDTO testGroupDTO){
+        var test = testService.getTestById(testGroupDTO.getTestId());
+        var testGroup = testGroupDTO.parseTestGroup();
+
+        testGroup.setTest(test);
         testGroupRepository.save(testGroup);
     }
 

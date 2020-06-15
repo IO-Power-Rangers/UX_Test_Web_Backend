@@ -44,6 +44,9 @@ public class TestDTO {
 
     private List<Long> recordingList;
 
+    @JsonProperty
+    private TestGroupDTO testGroup;
+
     public Test parseTest() {
         return Test.builder()
                 .id(this.getId())

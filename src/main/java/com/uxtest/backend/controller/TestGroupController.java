@@ -29,10 +29,8 @@ public class TestGroupController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createGroup(@RequestBody TestGroupDTO testGroupDTO){
-        TestGroup testGroup = testGroupDTO.parseTestGroup();
-        testGroupService.createTestGroup(testGroup);
-        return testGroup.getId();
+    public void createGroup(@RequestBody TestGroupDTO testGroupDTO){
+        testGroupService.createTestGroup(testGroupDTO);
     }
 
     @PutMapping("/{id}")
