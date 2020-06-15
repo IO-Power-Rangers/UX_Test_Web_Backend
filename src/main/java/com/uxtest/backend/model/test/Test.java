@@ -3,6 +3,7 @@ package com.uxtest.backend.model.test;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uxtest.backend.dto.TestDTO;
+import com.uxtest.backend.model.grouping.TestGroup;
 import com.uxtest.backend.model.questionnaire.Questionnaire;
 import com.uxtest.backend.model.recording.Recording;
 import com.uxtest.backend.model.user.User;
@@ -49,6 +50,9 @@ public class Test {
     @OneToMany(mappedBy = "test")
     private List<Recording> recordings;
 
+    @OneToOne(mappedBy = "test")
+    private TestGroup testGroup;
+
     @JsonIgnore
     public List<Long> getRecordingsIds(){
         return this.getRecordings().stream().map(Recording::getId).collect(Collectors.toList());
@@ -60,7 +64,28 @@ public class Test {
     }
 
     public TestDTO mapToDTO() {
-        if(this.getQuestionnaire()!=null)
+        if(this.getQuestionnaire()!=null && this.getTestGroup() != null)
+            return TestDTO.builder()
+                    .id(this.getId())
+                    .title(this.getTitle())
+                    .tasks(this.getTasks().stream().map(Task::mapToDTO).collect(Collectors.toList()))
+                    .uxModel(this.getUxModel().mapToDTO())
+                    .recordingList(this.getRecordingsIds())
+                    .questionnaire(this.getQuestionnaire().mapToDTO())
+                    .creator(this.getCreator().mapToDTO())
+                    .testGroup(this.getTestGroup().mapToDTO())
+                    .build();
+        else if(this.getQuestionnaire() ==null && this.getTestGroup() != null)
+            return TestDTO.builder()
+                    .id(this.getId())
+                    .title(this.getTitle())
+                    .tasks(this.getTasks().stream().map(Task::mapToDTO).collect(Collectors.toList()))
+                    .uxModel(this.getUxModel().mapToDTO())
+                    .recordingList(this.getRecordingsIds())
+                    .creator(this.getCreator().mapToDTO())
+                    .testGroup(this.getTestGroup().mapToDTO())
+                    .build();
+        else if(this.getQuestionnaire() !=null && this.getTestGroup() == null)
             return TestDTO.builder()
                     .id(this.getId())
                     .title(this.getTitle())
@@ -79,6 +104,5 @@ public class Test {
                     .recordingList(this.getRecordingsIds())
                     .creator(this.getCreator().mapToDTO())
                     .build();
-
     }
 }
