@@ -31,10 +31,10 @@ public class CardSortingTestService {
     }
 
     public void createTest(CardSortingTest cardSortingTest) {
+        saveCreator(cardSortingTest.getCreator(), cardSortingTest);
         testRepository.save(cardSortingTest);
         saveSubjects(cardSortingTest.getSubjects(), cardSortingTest);
         saveCategories(cardSortingTest.getCategories(), cardSortingTest);
-        saveCreator(cardSortingTest.getCreator(), cardSortingTest);
     }
 
     private void saveCreator(User creator, CardSortingTest cardSortingTest) {
