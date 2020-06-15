@@ -19,9 +19,13 @@ public class TextQuestionDTO {
     @JsonProperty
     private String content;
 
+    @JsonProperty
+    private String image;
+
     public TextQuestion parseTextQuestion() {
         return TextQuestion.builder()
                 .id(getId())
+                .image(getImage())
                 .content(getContent())
                 .build();
     }

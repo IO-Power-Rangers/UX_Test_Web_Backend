@@ -21,11 +21,15 @@ public class LikertScaleQuestionDTO {
     private String content;
 
     @JsonProperty
+    private String image;
+
+    @JsonProperty
     private int possibleStepsNo;
 
     public LikertScaleQuestion parseLikertScaleQuestion() {
         return LikertScaleQuestion.builder()
                 .content(getContent())
+                .image(getImage())
                 .possibleStepsNo(getPossibleStepsNo())
                 .build();
     }

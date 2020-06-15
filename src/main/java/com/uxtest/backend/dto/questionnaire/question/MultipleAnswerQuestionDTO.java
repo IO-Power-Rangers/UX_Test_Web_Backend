@@ -23,12 +23,16 @@ public class MultipleAnswerQuestionDTO {
     private String content;
 
     @JsonProperty
+    private String image;
+
+    @JsonProperty
     private List<MultipleAnswerQuestionOptionDTO> options;
 
     public MultipleAnswerQuestion parseMultipleChoiceQuestion() {
 
         return MultipleAnswerQuestion.builder()
                 .content(getContent())
+                .image(getImage())
                 .options(getOptions().stream()
                         .map(MultipleAnswerQuestionOptionDTO::parseMultipleAnswerQuestionOption)
                         .collect(Collectors.toList()))

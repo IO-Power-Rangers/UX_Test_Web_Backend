@@ -43,6 +43,9 @@ public class MultipleAnswerQuestion implements Question {
     @OneToMany(mappedBy="question")
     private List<MultipleAnswerAnswer> answers;
 
+    @Column(length=10485760, columnDefinition = "text")
+    private String image;
+
 
     @ManyToOne
     @JoinColumn(nullable=false)
@@ -52,6 +55,7 @@ public class MultipleAnswerQuestion implements Question {
         return MultipleAnswerQuestionDTO.builder()
                 .id(getId())
                 .content(getContent())
+                .image(getImage())
                 .options(getOptions().stream()
                         .map(MultipleAnswerQuestionOption::mapToDTO)
                         .collect(Collectors.toList()))
