@@ -24,6 +24,9 @@ public class MultipleChoiceQuestionDTO {
     private String content;
 
     @JsonProperty
+    private String image;
+
+    @JsonProperty
     private List<MultipleChoiceQuestionOptionDTO> options;
 
     public MultipleChoiceQuestion parseMultipleChoiceQuestion() {
@@ -39,6 +42,7 @@ public class MultipleChoiceQuestionDTO {
         return MultipleChoiceQuestion.builder()
                 .id(getId())
                 .content(getContent())
+                .image(getImage())
                 .options(options)
                 .build();
 

@@ -32,6 +32,9 @@ public class LikertScaleQuestion implements Question {
     @NotNull
     private String content;
 
+    @Column(length=10485760, columnDefinition = "text")
+    private String image;
+
     @OneToMany(mappedBy="question")
     private List<LikertScaleAnswer> answers;
 
@@ -46,6 +49,7 @@ public class LikertScaleQuestion implements Question {
         return LikertScaleQuestionDTO.builder()
                 .id(getId())
                 .content(getContent())
+                .image(getImage())
                 .possibleStepsNo(getPossibleStepsNo())
                 .build();
     }

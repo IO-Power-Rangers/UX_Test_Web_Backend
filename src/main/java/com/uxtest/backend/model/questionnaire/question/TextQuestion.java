@@ -30,6 +30,9 @@ public class TextQuestion implements Question {
     @NotNull
     private String content;
 
+    @Column(length=10485760, columnDefinition = "text")
+    private String image;
+
     @ManyToOne
     @JoinColumn(nullable=false)
     private Questionnaire questionnaire;
@@ -40,6 +43,7 @@ public class TextQuestion implements Question {
     public TextQuestionDTO mapToDTO() {
         return TextQuestionDTO.builder()
                 .id(getId())
+                .image(getImage())
                 .content(getContent())
                 .build();
     }

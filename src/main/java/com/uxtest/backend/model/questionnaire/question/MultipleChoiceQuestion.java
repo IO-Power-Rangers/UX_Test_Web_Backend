@@ -40,6 +40,9 @@ public class MultipleChoiceQuestion implements Question {
     @OneToMany(mappedBy="multipleChoiceQuestion")
     private List<MultipleChoiceQuestionOption> options;
 
+    @Column(length=10485760, columnDefinition = "text")
+    private String image;
+
     @ManyToOne
     @JoinColumn(nullable=false)
     private Questionnaire questionnaire;
@@ -48,6 +51,7 @@ public class MultipleChoiceQuestion implements Question {
         return MultipleChoiceQuestionDTO.builder()
                 .id(getId())
                 .content(getContent())
+                .image(getImage())
                 .options(getOptions().stream()
                     .map(MultipleChoiceQuestionOption::mapToDTO)
                     .collect(Collectors.toList()))
