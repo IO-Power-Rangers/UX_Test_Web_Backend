@@ -35,8 +35,11 @@ public class TestGroupService {
         testGroupRepository.save(testGroup);
     }
 
-    public void updateTest(TestGroup testGroup, Long id) {
+    public void updateTest(TestGroupDTO testGroupDTO, Long id) {
+        var testGroup = testGroupDTO.parseTestGroup();
+        var test = testService.getTestById(testGroupDTO.getTestId());
         if (testGroupRepository.existsById(id)) {
+            testGroup.setTest(test);
             testGroup.setId(id);
             testGroupRepository.save(testGroup);
         } else {

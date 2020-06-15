@@ -36,6 +36,6 @@ public class TestGroupController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void updateTestGroup(@RequestBody TestGroupDTO testGroupDTO, @PathVariable Long id) {
-        testGroupService.updateTest(testGroupDTO.parseTestGroup(), id);
+        testGroupService.updateTest(testGroupDTO, id);
     }
 }
